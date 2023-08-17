@@ -26,16 +26,20 @@ export default async function PostPage({
   const post: Post = await getPostBySlug(slug);
   return (
     <div>
-      <h1 className="text-4xl font-black text-theme-600 md:text-7xl ">
+      <h1 className="text-5xl font-black text-theme-600 md:text-7xl">
         {post.title}
       </h1>
       <div className="flex items-center gap-2">
-        <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
+        <div className="m-2 h-6 w-6 md:h-10 md:w-10 cursor-pointer overflow-hidden rounded-full">
           <Image src={pfp} width={40} height={40} alt="Emma Jo" />
         </div>
-        <h2 className="h-auto text-3xl font-light text-theme-700 opacity-50">
+        <h2 className="relative md:text-3xl text-lg font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
           {post.author}
-          {post.timestamp && ` - ${new Date(post.timestamp).toLocaleString()}`}
+          {post.timestamp &&
+            ` - ${new Date(post.timestamp).toLocaleString(undefined, {
+              dateStyle: "short",
+              timeStyle: "short",
+            })}`}
         </h2>
       </div>
       <Image

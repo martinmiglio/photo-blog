@@ -26,7 +26,7 @@ export default function RootLayout({
         <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between p-4">
           <div>
             <NavBar />
-            <div className="flex">{children}</div>
+            {children}
           </div>
           <FooterBar />
         </div>
