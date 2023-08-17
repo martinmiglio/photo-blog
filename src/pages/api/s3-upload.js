@@ -16,6 +16,6 @@ export default APIRoute.configure({
   bucket: env.S3_UPLOAD_BUCKET,
   region: env.S3_UPLOAD_REGION,
   key(req, filename) {
-    return `images/${sanitizeKey(filename)}`;
+    return `images/${Date.now()}-${sanitizeKey(filename)}`;
   },
 });
