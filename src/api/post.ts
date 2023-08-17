@@ -29,7 +29,7 @@ export async function getPostBySlug(slug: string) {
   const post: Post = {
     title: response.Item?.title ?? "Post not found",
     body: response.Item?.body ?? "",
-    imageURL: response.Item?.imageURL ?? "https://placehold.co/600x400",
+    imageURL: response.Item?.imageURL ?? "https://via.placeholder.com/500x500",
     slug: response.Item?.slug ?? "",
     timestamp: response.Item?.timestamp ?? "0",
     author: response.Item?.author ?? "Unknown",
