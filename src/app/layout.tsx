@@ -11,8 +11,28 @@ export const metadata: Metadata = {
     default: "toadtopia",
     template: "%s | toadtopia",
   },
-  description: "emma jo's blog",
-  icons: "icon",
+  description: "Emma Jo's blog",
+  metadataBase: new URL("https://www.toadtopia.rocks/"),
+  icons: "icon?v1",
+  twitter: {
+    card: "summary_large_image",
+    title: "toadtopia",
+    description: "Emma Jo's blog",
+    images: ["https://www.toadtopia.rocks/og?v1"],
+  },
+  openGraph: {
+    type: "website",
+    title: "toadtopia",
+    description: "Emma Jo's blog",
+    siteName: "toadtopia",
+    images: [
+      {
+        url: "https://www.toadtopia.rocks/og?v1",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
