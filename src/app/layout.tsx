@@ -11,8 +11,28 @@ export const metadata: Metadata = {
     default: "***REMOVED***",
     template: "%s | ***REMOVED***",
   },
-  description: "emma jo's blog",
-  icons: "icon",
+  description: "Emma Jo's blog",
+  metadataBase: new URL("https://www.***REMOVED***/"),
+  icons: "icon?v1",
+  twitter: {
+    card: "summary_large_image",
+    title: "***REMOVED***",
+    description: "Emma Jo's blog",
+    images: ["https://www.***REMOVED***/og?v1"],
+  },
+  openGraph: {
+    type: "website",
+    title: "***REMOVED***",
+    description: "Emma Jo's blog",
+    siteName: "***REMOVED***",
+    images: [
+      {
+        url: "https://www.***REMOVED***/og?v1",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
