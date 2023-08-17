@@ -21,6 +21,17 @@ const client = new DynamoDBClient({
   region: env.DYNAMO_REGION,
 });
 
+const parseItem = (item: any) => {
+  return {
+    title: item?.title ?? "Post not found",
+    body: item?.body ?? "",
+    imageURL: item?.imageURL ?? "https://via.placeholder.com/500x500",
+    slug: item?.slug ?? "",
+    timestamp: item?.timestamp ?? "0",
+    author: item?.author ?? "Unknown",
+  } as Post;
+};
+
 export const getPostBySlug = cache(async (slug: string) => {
   const command = new GetCommand({
     TableName: env.DYNAMO_TABLE,
@@ -28,22 +39,35 @@ export const getPostBySlug = cache(async (slug: string) => {
       slug: slug,
     },
   });
-  const response = await client.send(command);
-  return {
-    title: response.Item?.title ?? "Post not found",
-    body: response.Item?.body ?? "",
-    imageURL: response.Item?.imageURL ?? "https://via.placeholder.com/500x500",
-    slug: response.Item?.slug ?? "",
-    timestamp: response.Item?.timestamp ?? "0",
-    author: response.Item?.author ?? "Unknown",
-  } as Post;
+  const item = (await client.send(command)).Item;
+  return parseItem(item);
 });
 
 export const getAllPosts = cache(async () => {
   const command = new ScanCommand({
     TableName: env.DYNAMO_TABLE,
   });
-  return (await client.send(command)).Items as Post[];
+  const items = (await client.send(command)).Items;
+
+  const posts = items?.map((item) => {
+    return parseItem(item);
+  });
+
+  if (!posts) {
+    return [];
+  }
+
+  posts.sort((a, b) => {
+    if (!a.timestamp || !b.timestamp) {
+      return 0;
+    }
+    return (
+      new Date(b.timestamp).getUTCMilliseconds() -
+      new Date(a.timestamp).getUTCMilliseconds()
+    );
+  });
+
+  return posts;
 });
 
 export async function createPost(post: Post) {
