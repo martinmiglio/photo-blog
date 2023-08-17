@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "toadtopia",
     description: "Emma Jo's blog",
-    images: ["https://www.toadtopia.rocks/og?v1"],
+    images: ["https://www.toadtopia.rocks/og?v2"],
   },
   openGraph: {
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "toadtopia",
     images: [
       {
-        url: "https://www.toadtopia.rocks/og?v1",
+        url: "https://www.toadtopia.rocks/og?v2",
         width: 1200,
         height: 630,
       },

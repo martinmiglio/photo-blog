@@ -20,7 +20,7 @@ export async function GET() {
             backgroundColor: "#F8C4DC",
             fontFamily: '"Regular"',
           }}
-          tw="w-full h-full flex flex-col pl-12"
+          tw="w-full h-full flex flex-col"
         >
           <div tw="flex flex-col items-center">
             <h1
