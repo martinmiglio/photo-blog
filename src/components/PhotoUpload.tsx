@@ -22,7 +22,7 @@ export default function PhotoUpload({
       {!imageUrl ? (
         <button
           onClick={openFileDialog}
-          className="h-[432px] w-[768px] rounded border-b-4 border-theme-700 bg-theme-500 text-xl font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400"
+          className="h-[432px] max-w-[768px] w-full rounded border-b-4 border-theme-700 bg-theme-500 text-xl font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400"
         >
           <span className="inline-flex items-center">
             <svg

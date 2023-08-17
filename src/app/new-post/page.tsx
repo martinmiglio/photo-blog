@@ -61,8 +61,12 @@ export default function NewPostPage() {
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image src={pfp} width={40} height={40} alt={AUTHOR_NAME} />
         </div>
-        <h2 className="h-auto text-3xl font-light text-theme-700 opacity-50">
-          {AUTHOR_NAME} - {new Date().toLocaleDateString()}
+        <h2 className="relative md:text-3xl text-lg font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
+          {AUTHOR_NAME} -{" "}
+          {new Date().toLocaleString(undefined, {
+            dateStyle: "short",
+            timeStyle: "short",
+          })}
         </h2>
       </div>
       <PhotoUpload handleFileChange={setImageURL} />

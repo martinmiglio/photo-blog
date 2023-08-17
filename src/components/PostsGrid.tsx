@@ -5,7 +5,7 @@ import Link from "next/link";
 function PostsGridItem({ post }: { post: Post }) {
   return (
     <Link href={`/post/${post.slug}`} passHref>
-      <div className="group relative h-56 w-56 bg-theme-600">
+      <div className="group relative aspect-square w-30v bg-theme-600 overflow-hidden">
         <div className="h-full w-full overflow-hidden">
           <Image
             src={post.imageURL}
