@@ -2,7 +2,11 @@ import { Post } from "@/types/Post/Post";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { fromEnv } from "@aws-sdk/credential-providers";
 import { GetCommand, ScanCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { cache } from "react";
+import "server-only";
 import { z } from "zod";
+
+export const revalidate = 120;
 
 const schema = z.object({
   AWS_ACCESS_KEY_ID: z.string(),
@@ -12,13 +16,12 @@ const schema = z.object({
 });
 const env = schema.parse(process.env);
 
-const credentials = fromEnv();
 const client = new DynamoDBClient({
-  credentials,
+  credentials: fromEnv(),
   region: env.DYNAMO_REGION,
 });
 
-export async function getPostBySlug(slug: string) {
+export const getPostBySlug = cache(async (slug: string) => {
   const command = new GetCommand({
     TableName: env.DYNAMO_TABLE,
     Key: {
@@ -26,25 +29,22 @@ export async function getPostBySlug(slug: string) {
     },
   });
   const response = await client.send(command);
-  const post: Post = {
+  return {
     title: response.Item?.title ?? "Post not found",
     body: response.Item?.body ?? "",
     imageURL: response.Item?.imageURL ?? "https://via.placeholder.com/500x500",
     slug: response.Item?.slug ?? "",
     timestamp: response.Item?.timestamp ?? "0",
     author: response.Item?.author ?? "Unknown",
-  };
-  return post;
-}
+  } as Post;
+});
 
-export async function getAllPosts() {
+export const getAllPosts = cache(async () => {
   const command = new ScanCommand({
     TableName: env.DYNAMO_TABLE,
   });
-  const response = await client.send(command);
-
-  return response.Items as Post[];
-}
+  return (await client.send(command)).Items as Post[];
+});
 
 export async function createPost(post: Post) {
   const command = new PutCommand({
