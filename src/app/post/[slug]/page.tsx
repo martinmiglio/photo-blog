@@ -52,7 +52,7 @@ export default async function PostPage({
         {post.title}
       </h1>
       <div className="flex items-center gap-2">
-        <div className="m-2 h-6 w-6 md:h-10 md:w-10 cursor-pointer overflow-hidden rounded-full">
+        <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
             src="https://www.toadtopia.rocks/pfp.jpg"
             width={40}
@@ -60,7 +60,7 @@ export default async function PostPage({
             alt="pfp"
           />
         </div>
-        <h2 className="relative md:text-3xl text-lg font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
+        <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
           {post.author}
           {post.timestamp &&
             ` - ${new Date(post.timestamp).toLocaleString(undefined, {

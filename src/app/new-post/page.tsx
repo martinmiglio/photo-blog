@@ -67,7 +67,7 @@ export default function NewPostPage() {
             alt={AUTHOR_NAME}
           />
         </div>
-        <h2 className="relative md:text-3xl text-lg font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
+        <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
           {AUTHOR_NAME} -{" "}
           {new Date().toLocaleString(undefined, {
             dateStyle: "short",

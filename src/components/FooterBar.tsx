@@ -4,7 +4,7 @@ export default function FooterBar() {
   return (
     <footer className="flex w-full flex-row flex-wrap items-center justify-between py-8 text-sm opacity-60">
       <div className="pb-1">
-        © 2023 Emma Lewis - Created by{" "}
+        © 2023 Emma Jo - Created by{" "}
         <Link href="https://martinmiglio.dev/" className="hover:underline">
           Martin
         </Link>
