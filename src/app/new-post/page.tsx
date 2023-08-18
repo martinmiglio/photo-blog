@@ -29,7 +29,7 @@ export default function NewPostPage() {
       body: body,
       imageURL: imageURL,
       slug: encodeURIComponent(
-        `${title.toLowerCase()} ${new Date().toLocaleDateString()}`.replaceAll(
+        `${title.toLowerCase()} ${new Date().toISOString()}`.replaceAll(
           " ",
           "-",
         ),
