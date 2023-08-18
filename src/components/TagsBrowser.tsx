@@ -55,7 +55,7 @@ export function TagsBrowser({
   // Sort tags by post count
   const tags = ["all", ...tagsByLatest];
 
-  const [selectedTag, setSelectedTag] = useState(initalTag || tags[0]);
+  const [selectedTag, setSelectedTag] = useState(initalTag ?? tags[0]);
 
   const postsToDisplay =
     selectedTag === "all"
@@ -86,19 +86,19 @@ export function TagsBrowserHeader({
   return (
     <div className="w-full">
       <div
-        className="flex min-w-full whitespace-nowrap flex-nowrap divide-x-2 divide-theme-200 overflow-x-auto overscroll-bouncing snap-x select-none mb-2"
+        className="flex min-w-full whitespace-nowrap flex-nowrap divide-x-4 divide-theme-200 overflow-x-auto overscroll-bouncing snap-x select-none mb-2"
         style={{ scrollbarColor: "#F8A5D0 #F8C4DC" }}
       >
         {tags.map((tag) => {
           const isActive = tag === selectedTag;
           const backgroundColorClass = classNames({
-            "bg-theme-300": isActive,
-            "bg-theme-200": !isActive,
+            "bg-theme-400": isActive,
+            "bg-theme-300": !isActive,
           });
           return (
             <div
               key={tag}
-              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 ${backgroundColorClass}`}
+              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 transition-colors ${backgroundColorClass}`}
               onClick={() => setSelectedTag(tag)}
             >
               {tag}
