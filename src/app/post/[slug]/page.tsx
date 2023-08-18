@@ -1,5 +1,4 @@
 import { getPostBySlug } from "@/api/post";
-import pfp from "@/assets/pfp.jpg";
 import PostTags from "@/components/PostTags";
 import { Post } from "@/types/Post/Post";
 import { Metadata } from "next";
@@ -33,7 +32,12 @@ export default async function PostPage({
       </h1>
       <div className="flex items-center gap-2">
         <div className="m-2 h-6 w-6 md:h-10 md:w-10 cursor-pointer overflow-hidden rounded-full">
-          <Image src={pfp} width={40} height={40} alt="Emma Jo" />
+          <Image
+            src="https://www.toadtopia.rocks/pfp.jpg"
+            width={40}
+            height={40}
+            alt="pfp"
+          />
         </div>
         <h2 className="relative md:text-3xl text-lg font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
           {post.author}
