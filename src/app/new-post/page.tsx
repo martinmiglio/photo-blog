@@ -2,7 +2,7 @@
 
 import pfp from "@/assets/pfp.jpg";
 import PhotoUpload from "@/components/PhotoUpload";
-import { BodyInput, TitleInput } from "@/components/PostInput";
+import { BodyInput, TagsInput, TitleInput } from "@/components/PostInput";
 import { Post } from "@/types/Post/Post";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -13,6 +13,7 @@ const AUTHOR_NAME = "Emma Jo";
 export default function NewPostPage() {
   const [title, setTitle] = useState<string | undefined>();
   const [body, setBody] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
   const [imageURL, setImageURL] = useState<string | undefined>();
   const [slug, setSlug] = useState<string | undefined>();
 
@@ -36,6 +37,7 @@ export default function NewPostPage() {
       ),
       timestamp: new Date().toISOString(),
       author: AUTHOR_NAME,
+      tags: tags,
     };
 
     const res = await fetch("/api/post", {
@@ -71,6 +73,7 @@ export default function NewPostPage() {
       </div>
       <PhotoUpload handleFileChange={setImageURL} />
       <BodyInput handleBodyChange={setBody} />
+      <TagsInput handleTagsChange={setTags} />
       <button
         className="h-16 w-full rounded border-b-4 border-theme-700 bg-theme-500 text-xl font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 disabled:cursor-not-allowed disabled:opacity-50"
         onClick={handleSubmit}

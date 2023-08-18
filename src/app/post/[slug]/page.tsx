@@ -1,5 +1,6 @@
 import { getPostBySlug } from "@/api/post";
 import pfp from "@/assets/pfp.jpg";
+import PostTags from "@/components/PostTags";
 import { Post } from "@/types/Post/Post";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -24,8 +25,9 @@ export default async function PostPage({
 }) {
   const { slug } = params;
   const post: Post = await getPostBySlug(slug);
+
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <h1 className="text-5xl font-black text-theme-600 md:text-7xl">
         {post.title}
       </h1>
@@ -42,13 +44,7 @@ export default async function PostPage({
             })}`}
         </h2>
       </div>
-      <Image
-        src={post.imageURL}
-        width={768}
-        height={432}
-        alt="Showcase"
-        className="my-2"
-      />
+      <Image src={post.imageURL} width={768} height={432} alt="Showcase" />
       <div className="text-2xl font-[350] text-theme-950">
         <ReactMarkdown
           rehypePlugins={[
@@ -65,6 +61,7 @@ export default async function PostPage({
           {post.body ?? ""}
         </ReactMarkdown>
       </div>
+      {post.tags && <PostTags tags={post.tags} />}
     </div>
   );
 }

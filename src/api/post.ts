@@ -6,8 +6,6 @@ import { cache } from "react";
 import "server-only";
 import { z } from "zod";
 
-export const revalidate = 120;
-
 const schema = z.object({
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),
@@ -29,6 +27,7 @@ const parseItem = (item: any) => {
     slug: item?.slug ?? "",
     timestamp: item?.timestamp ?? "0",
     author: item?.author ?? "Unknown",
+    tags: item?.tags ?? [],
   } as Post;
 };
 
