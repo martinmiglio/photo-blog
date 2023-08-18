@@ -5,4 +5,5 @@ export type Post = {
   author?: string;
   timestamp?: string;
   body?: string;
+  tags?: string[];
 };
