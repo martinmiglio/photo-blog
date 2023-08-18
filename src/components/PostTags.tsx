@@ -11,7 +11,7 @@ export default function PostTags({ tags }: { tags: string[] }) {
           return (
             <Link
               key={tag}
-              className={`px-2 py-1 shrink-0 w-20 text-center snap-start mb-4 bg-theme-300`}
+              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 bg-theme-300`}
               href={`/?tag=${tag}`}
             >
               {tag}
