@@ -69,7 +69,14 @@ export default async function PostPage({
             })}`}
         </h2>
       </div>
-      <Image src={post.imageURL} width={768} height={432} alt="Showcase" />
+      <Image
+        src={post.imageURL}
+        width={768}
+        height={432}
+        alt="Showcase"
+        priority
+        quality={100}
+      />
       <div className="text-2xl font-[350] text-theme-950">
         <ReactMarkdown
           rehypePlugins={[
