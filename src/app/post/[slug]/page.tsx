@@ -1,5 +1,6 @@
 import { getPostBySlug } from "@/api/post";
 import PostTags from "@/components/PostTags";
+import ShareButton from "@/components/ShareButton";
 import { Post } from "@/types/Post/Post";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -45,7 +46,6 @@ export default async function PostPage({
 }) {
   const { slug } = params;
   const post: Post = await getPostBySlug(slug);
-
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-5xl font-black text-theme-600 md:text-7xl">
@@ -86,7 +86,10 @@ export default async function PostPage({
           {post.body ?? ""}
         </ReactMarkdown>
       </div>
-      {post.tags && <PostTags tags={post.tags} />}
+      <span className="flex gap-2">
+        <ShareButton url={`https://www.toadtopia.rocks/post/${post.slug}`} />
+        {post.tags && <PostTags tags={post.tags} />}
+      </span>
     </div>
   );
 }
