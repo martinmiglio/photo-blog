@@ -12,18 +12,48 @@ export function TagsBrowser({
   posts: Post[];
   initalTag?: string;
 }) {
-  let tags = posts.reduce((acc, post) => {
-    if (!post.tags) {
-      return acc;
+  const tagLatestPostMap: { [tag: string]: Post } = {};
+
+  // Build a map of tags to their latest posts
+  posts.forEach((post) => {
+    if (post.tags) {
+      post.tags.forEach((tag) => {
+        if (tagLatestPostMap[tag]) {
+          const latestPost = tagLatestPostMap[tag];
+          if (!latestPost.timestamp || !post.timestamp) {
+            return;
+          }
+          if (post.timestamp > latestPost.timestamp) {
+            tagLatestPostMap[tag] = post;
+          }
+        } else {
+          tagLatestPostMap[tag] = post;
+        }
+      });
     }
-    post.tags.forEach((tag) => {
-      if (!acc.includes(tag)) {
-        acc.push(tag);
-      }
-    });
-    return acc;
-  }, [] as string[]);
-  tags = ["all", ...tags];
+  });
+
+  // Sort tags by latest post timestamp
+  const tagsByLatest = Object.keys(tagLatestPostMap).sort((a, b) => {
+    const postA = tagLatestPostMap[a];
+    const postB = tagLatestPostMap[b];
+
+    const timestampA = postA.timestamp
+      ? new Date(postA.timestamp).getTime()
+      : 0;
+    const timestampB = postB.timestamp
+      ? new Date(postB.timestamp).getTime()
+      : 0;
+
+    if (timestampB === timestampA) {
+      return a.localeCompare(b); // Alphabetical sorting
+    } else {
+      return timestampB - timestampA;
+    }
+  });
+
+  // Sort tags by post count
+  const tags = ["all", ...tagsByLatest];
 
   const [selectedTag, setSelectedTag] = useState(initalTag || tags[0]);
 
@@ -68,7 +98,7 @@ export function TagsBrowserHeader({
           return (
             <div
               key={tag}
-              className={`px-2 py-1 shrink-0 w-20 text-center snap-start mb-4 ${backgroundColorClass}`}
+              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 ${backgroundColorClass}`}
               onClick={() => setSelectedTag(tag)}
             >
               {tag}

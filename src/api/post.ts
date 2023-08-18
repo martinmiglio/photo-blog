@@ -60,10 +60,7 @@ export const getAllPosts = cache(async () => {
     if (!a.timestamp || !b.timestamp) {
       return 0;
     }
-    return (
-      new Date(b.timestamp).getUTCMilliseconds() -
-      new Date(a.timestamp).getUTCMilliseconds()
-    );
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   });
 
   return posts;
