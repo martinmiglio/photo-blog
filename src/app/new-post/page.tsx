@@ -8,6 +8,13 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { z } from "zod";
+
+const schema = z.object({
+  VERCEL_URL: z.string(),
+});
+
+const env = schema.parse(process.env);
 
 export default function NewPostPage() {
   const [title, setTitle] = useState<string | undefined>();
@@ -70,7 +77,7 @@ export default function NewPostPage() {
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
-            src={user.image ?? "https://www.toadtopia.rocks/pfp.jpg"}
+            src={user.image ?? `https://${env.VERCEL_URL}/pfp.jpg`}
             width={40}
             height={40}
             alt={user.name ?? "pfp"}

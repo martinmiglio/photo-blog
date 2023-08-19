@@ -6,6 +6,14 @@ import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 import type { Metadata } from "next";
 import { Session, getServerSession } from "next-auth";
 import { Yanone_Kaffeesatz as Font } from "next/font/google";
+import { z } from "zod";
+
+const schema = z.object({
+  VERCEL_URL: z.string(),
+  PUBLIC_URL: z.string().optional(),
+});
+
+const env = schema.parse(process.env);
 
 const font = Font({ subsets: ["latin"] });
 
@@ -15,13 +23,13 @@ export const metadata: Metadata = {
     template: "%s | toadtopia",
   },
   description: "Emma Jo's blog",
-  metadataBase: new URL("https://www.toadtopia.rocks/"),
+  metadataBase: new URL(`https://${env.PUBLIC_URL ?? env.VERCEL_URL}`),
   icons: "icon?v1",
   twitter: {
     card: "summary_large_image",
     title: "toadtopia",
     description: "Emma Jo's blog",
-    images: ["https://www.toadtopia.rocks/og?v2"],
+    images: [`https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og?v1`],
   },
   openGraph: {
     type: "website",
@@ -30,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "toadtopia",
     images: [
       {
-        url: "https://www.toadtopia.rocks/og?v2",
+        url: `https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og?v1`,
         width: 1200,
         height: 630,
       },
