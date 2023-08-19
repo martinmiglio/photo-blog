@@ -55,7 +55,7 @@ export default function NewPostPage() {
   const session: any = useSession();
 
   if (!session || session.status !== "authenticated") {
-    redirect("/api/auth/signin");
+    redirect("/signin");
   }
 
   const { user }: { user: User } = session.data;

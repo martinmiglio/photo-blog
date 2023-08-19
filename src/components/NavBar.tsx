@@ -27,7 +27,7 @@ export default function NavBar() {
               new post
             </Link>
           ) : (
-            <Link className="hover:underline" href="/api/auth/signin">
+            <Link className="hover:underline" href="/signin">
               sign in
             </Link>
           )}
