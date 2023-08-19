@@ -11,11 +11,11 @@ const env = schema.parse(process.env);
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      env.PUBLIC_URL ?? env.VERCEL_URL,
-      env.S3_DOMAIN,
-      "via.placeholder.com",
-      "lh3.googleusercontent.com",
+    remotePatterns: [
+      { protocol: "https", hostname: env.PUBLIC_URL ?? env.VERCEL_URL },
+      { protocol: "https", hostname: env.S3_DOMAIN },
+      { protocol: "https", hostname: "via.placeholder.com" },
+      { protocol: "https", hostname: "**.googleusercontent.com" },
     ],
   },
 };
