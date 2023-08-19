@@ -4,6 +4,7 @@ import { getUserById } from "@/db/auth";
 import { getPostBySlug } from "@/db/post";
 import { Metadata } from "next";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeRewrite from "rehype-rewrite";
 import gfm from "remark-gfm";
@@ -15,7 +16,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = params;
   const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return {};
+  }
+
   const user = await getUserById(post.authorId);
+
+  if (!user) {
+    return {};
+  }
+
   return {
     title: post.title,
     twitter: {
@@ -47,6 +58,11 @@ export default async function PostPage({
 }) {
   const { slug } = params;
   const post = await getPostBySlug(slug);
+
+  if (!post) {
+    redirect("/");
+  }
+
   const user = await getUserById(post.authorId);
 
   return (

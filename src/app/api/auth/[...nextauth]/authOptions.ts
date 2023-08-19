@@ -40,11 +40,13 @@ const authOptions: AuthOptions = {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (account) {
         token.poster = await isUserPoster(account.providerAccountId ?? "0");
+        token.id = account.providerAccountId;
       }
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
       session.user.poster = token.poster;
+      session.user.id = token.id;
       return session;
     },
   },
