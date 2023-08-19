@@ -11,6 +11,7 @@ import gfm from "remark-gfm";
 import { z } from "zod";
 
 const schema = z.object({
+  S3_DOMAIN: z.string(),
   VERCEL_URL: z.string(),
   PUBLIC_URL: z.string().optional(),
 });
@@ -81,7 +82,7 @@ export default async function PostPage({
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
-            src={user?.image ?? `https://${env.VERCEL_URL}/pfp.jpg`}
+            src={user?.image ?? `https://${env.S3_DOMAIN}/images/pfp.jpg`}
             width={40}
             height={40}
             alt={`${user?.name} pfp`}
