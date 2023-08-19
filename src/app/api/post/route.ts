@@ -1,5 +1,4 @@
-import { createPost, getPostBySlug } from "@/api/post";
-import { Post } from "@/types/Post/Post";
+import { createPost, getPostBySlug, Post } from "@/db/post";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

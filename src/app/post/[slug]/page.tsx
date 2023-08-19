@@ -1,7 +1,6 @@
-import { getPostBySlug } from "@/api/post";
 import PostTags from "@/components/PostTags";
 import ShareButton from "@/components/ShareButton";
-import { Post } from "@/types/Post/Post";
+import { getPostBySlug } from "@/db/post";
 import { Metadata } from "next";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
@@ -14,7 +13,7 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const { slug } = params;
-  const post: Post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   return {
     title: post.title,
     twitter: {
@@ -45,7 +44,7 @@ export default async function PostPage({
   params: { slug: string };
 }) {
   const { slug } = params;
-  const post: Post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-5xl font-black text-theme-600 md:text-7xl">
