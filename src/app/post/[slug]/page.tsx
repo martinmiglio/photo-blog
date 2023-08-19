@@ -1,5 +1,6 @@
 import PostTags from "@/components/PostTags";
 import ShareButton from "@/components/ShareButton";
+import { getUserById } from "@/db/auth";
 import { getPostBySlug } from "@/db/post";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -14,17 +15,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = params;
   const post = await getPostBySlug(slug);
+  const user = await getUserById(post.authorId);
   return {
     title: post.title,
     twitter: {
       card: "summary_large_image",
-      title: `post by ${post.author} on toadtopia`,
+      title: `post by ${user?.name} on toadtopia`,
       description: "Emma Jo's blog",
       images: [`https://www.toadtopia.rocks/og/post?slug=${slug}&v1`],
     },
     openGraph: {
       type: "website",
-      title: `post by ${post.author} on toadtopia`,
+      title: `post by ${user?.name} on toadtopia`,
       description: "Emma Jo's blog",
       siteName: "toadtopia",
       images: [
@@ -45,6 +47,8 @@ export default async function PostPage({
 }) {
   const { slug } = params;
   const post = await getPostBySlug(slug);
+  const user = await getUserById(post.authorId);
+
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-5xl font-black text-theme-600 md:text-7xl">
@@ -53,14 +57,14 @@ export default async function PostPage({
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
-            src="https://www.toadtopia.rocks/pfp.jpg"
+            src={user?.image ?? "https://www.toadtopia.rocks/pfp.jpg"}
             width={40}
             height={40}
-            alt="pfp"
+            alt={`${user?.name} pfp`}
           />
         </div>
         <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
-          {post.author}
+          {user?.name}
           {post.timestamp &&
             ` - ${new Date(post.timestamp).toLocaleString(undefined, {
               dateStyle: "short",

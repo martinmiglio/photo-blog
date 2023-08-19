@@ -9,8 +9,8 @@ export type Post = {
   title: string;
   imageURL: string;
   slug: string;
-  author?: string;
-  timestamp?: string;
+  authorId: string;
+  timestamp: string;
   body?: string;
   tags?: string[];
 };
@@ -31,11 +31,11 @@ const client = new DynamoDBClient({
 const parseItem = (item: any) => {
   return {
     title: item?.title ?? "Post not found",
-    body: item?.body ?? "",
+    body: item?.body ?? undefined,
     imageURL: item?.imageURL ?? "https://via.placeholder.com/500x500",
     slug: item?.slug ?? "",
     timestamp: item?.timestamp ?? "0",
-    author: item?.author ?? "Unknown",
+    authorId: item?.authorId ?? "",
     tags: item?.tags ?? [],
   } as Post;
 };

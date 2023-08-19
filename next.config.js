@@ -5,6 +5,7 @@ const nextConfig = {
       "via.placeholder.com",
       "toadtopia.s3.us-east-1.amazonaws.com",
       "www.toadtopia.rocks",
+      "lh3.googleusercontent.com",
     ],
   },
 };
