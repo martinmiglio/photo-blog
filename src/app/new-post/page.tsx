@@ -2,7 +2,7 @@
 
 import PhotoUpload from "@/components/PhotoUpload";
 import { BodyInput, TagsInput, TitleInput } from "@/components/PostInput";
-import { Post } from "@/types/Post/Post";
+import { Post } from "@/db/post";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";

@@ -1,5 +1,5 @@
-import { getAllPosts } from "@/api/post";
 import { TagsBrowser } from "@/components/TagsBrowser";
+import { getAllPosts } from "@/db/post";
 
 export const dynamic = "force-dynamic";
 
