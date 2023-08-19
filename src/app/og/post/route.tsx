@@ -2,8 +2,15 @@
 import { User } from "@/db/auth";
 import { Post } from "@/db/post";
 import { ImageResponse, NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export const runtime = "edge";
+
+const schema = z.object({
+  VERCEL_URL: z.string(),
+});
+
+const env = schema.parse(process.env);
 
 export async function GET(req: NextRequest) {
   try {
@@ -21,7 +28,7 @@ export async function GET(req: NextRequest) {
     const post = (await res.json()) as Post;
 
     res = await fetch(`${basePath}/api/user?id=` + post.authorId);
-    const user = (await res.json()) as  User | null;
+    const user = (await res.json()) as User | null;
 
     const fontDataBold = await fetch(
       new URL("../../../assets/YanoneKaffeesatz-Bold.ttf", import.meta.url),
@@ -53,7 +60,7 @@ export async function GET(req: NextRequest) {
                 tw={`flex m-2 mr-6 h-[${PFP_SIZE}px] w-[${PFP_SIZE}px] overflow-hidden rounded-full`}
               >
                 <img
-                  src={user?.image ?? "https://www.***REMOVED***/pfp.jpg"}
+                  src={user?.image ?? `https://${env.VERCEL_URL}/pfp.jpg`}
                   width={PFP_SIZE}
                   height={PFP_SIZE}
                   alt="pfp"
@@ -71,7 +78,7 @@ export async function GET(req: NextRequest) {
             <h4 tw="flex text-9xl my-auto">&quot;{post.title}&quot;</h4>
           </div>
           <h5 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
-            ***REMOVED***/post/{post.slug.slice(0, 9)}...
+            {env.VERCEL_URL}/post/{post.slug.slice(0, 9)}...
           </h5>
         </div>
       ),

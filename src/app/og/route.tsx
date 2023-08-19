@@ -1,8 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/server";
+import { z } from "zod";
 
 export const runtime = "edge";
 
+const schema = z.object({
+  VERCEL_URL: z.string(),
+});
+
+const env = schema.parse(process.env);
 export async function GET() {
   try {
     const fontDataBold = await fetch(
@@ -30,14 +36,14 @@ export async function GET() {
               ***REMOVED***
             </h1>
             <img
-              src="https://www.***REMOVED***/icon.svg"
+              src={`https://${env.VERCEL_URL}/icon.svg`}
               alt="***REMOVED***"
               height={350}
               width={350}
             />
           </div>
           <h4 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
-            ***REMOVED***
+            {env.VERCEL_URL}
           </h4>
         </div>
       ),

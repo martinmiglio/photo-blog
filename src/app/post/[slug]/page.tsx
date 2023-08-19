@@ -8,6 +8,14 @@ import { redirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeRewrite from "rehype-rewrite";
 import gfm from "remark-gfm";
+import { z } from "zod";
+
+const schema = z.object({
+  VERCEL_URL: z.string(),
+  PUBLIC_URL: z.string().optional(),
+});
+
+const env = schema.parse(process.env);
 
 export async function generateMetadata({
   params,
@@ -33,7 +41,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `post by ${user?.name} on ***REMOVED***`,
       description: "Emma Jo's blog",
-      images: [`https://www.***REMOVED***/og/post?slug=${slug}&v1`],
+      images: [`https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og/post?slug=${slug}&v1`],
     },
     openGraph: {
       type: "website",
@@ -42,7 +50,7 @@ export async function generateMetadata({
       siteName: "***REMOVED***",
       images: [
         {
-          url: `https://www.***REMOVED***/og/post?slug=${slug}&v1`,
+          url: `https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og/post?slug=${slug}&v1`,
           width: 1200,
           height: 630,
         },
@@ -73,7 +81,7 @@ export default async function PostPage({
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
-            src={user?.image ?? "https://www.***REMOVED***/pfp.jpg"}
+            src={user?.image ?? `https://${env.VERCEL_URL}/pfp.jpg`}
             width={40}
             height={40}
             alt={`${user?.name} pfp`}
@@ -113,7 +121,7 @@ export default async function PostPage({
         </ReactMarkdown>
       </div>
       <span className="flex gap-2">
-        <ShareButton url={`https://www.***REMOVED***/post/${post.slug}`} />
+        <ShareButton url={`https://${env.VERCEL_URL}/post/${post.slug}`} />
         {post.tags && <PostTags tags={post.tags} />}
       </span>
     </div>
