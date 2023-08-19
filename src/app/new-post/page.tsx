@@ -2,12 +2,12 @@
 
 import PhotoUpload from "@/components/PhotoUpload";
 import { BodyInput, TagsInput, TitleInput } from "@/components/PostInput";
+import { User } from "@/db/auth";
 import { Post } from "@/db/post";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-
-const AUTHOR_NAME = "Emma Jo";
 
 export default function NewPostPage() {
   const [title, setTitle] = useState<string | undefined>();
@@ -29,13 +29,10 @@ export default function NewPostPage() {
       body: body,
       imageURL: imageURL,
       slug: encodeURIComponent(
-        `${title.toLowerCase()} ${new Date().toISOString()}`.replaceAll(
-          " ",
-          "-",
-        ),
+        `${title.toLowerCase()} ${new Date().getTime()}`.replaceAll(" ", "-"),
       ),
       timestamp: new Date().toISOString(),
-      author: AUTHOR_NAME,
+      authorId: user.id,
       tags: tags,
     };
 
@@ -55,20 +52,32 @@ export default function NewPostPage() {
     redirect(`/post/${slug}`);
   }
 
+  const session: any = useSession();
+
+  if (!session || session.status !== "authenticated") {
+    redirect("/api/auth/signin");
+  }
+
+  const { user }: { user: User } = session.data;
+
+  if (!user.poster) {
+    redirect("/");
+  }
+
   return (
     <div data-color-mode="light" className="flex flex-col gap-3">
       <TitleInput handleTitleChange={setTitle} />
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
           <Image
-            src="https://www.***REMOVED***/pfp.jpg"
+            src={user.image ?? "https://www.***REMOVED***/pfp.jpg"}
             width={40}
             height={40}
-            alt={AUTHOR_NAME}
+            alt={user.name ?? "pfp"}
           />
         </div>
         <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
-          {AUTHOR_NAME} -{" "}
+          {user.name} -{" "}
           {new Date().toLocaleString(undefined, {
             dateStyle: "short",
             timeStyle: "short",

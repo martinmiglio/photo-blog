@@ -1,7 +1,7 @@
 "use client";
 
 import PostsGrid from "@/components/PostsGrid";
-import { Post } from "@/types/Post/Post";
+import { Post } from "@/db/post";
 import classNames from "classnames";
 import { useState } from "react";
 

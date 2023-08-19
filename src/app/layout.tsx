@@ -1,7 +1,10 @@
+import authOptions from "./api/auth/[...nextauth]/authOptions";
 import "./globals.css";
 import FooterBar from "@/components/FooterBar";
 import NavBar from "@/components/NavBar";
+import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 import type { Metadata } from "next";
+import { Session, getServerSession } from "next-auth";
 import { Yanone_Kaffeesatz as Font } from "next/font/google";
 
 const font = Font({ subsets: ["latin"] });
@@ -40,21 +43,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session: Session | null | undefined =
+    await getServerSession(authOptions);
   return (
     <html lang="en" className="bg-theme-200">
       <body className={font.className}>
-        <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between p-4">
-          <div>
-            <NavBar />
-            {children}
+        <AuthSessionProvider session={session}>
+          <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between p-4">
+            <div className="flex flex-col">
+              <NavBar />
+              {children}
+            </div>
+            <FooterBar />
           </div>
-          <FooterBar />
-        </div>
+        </AuthSessionProvider>
       </body>
     </html>
   );

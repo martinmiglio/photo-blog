@@ -1,4 +1,4 @@
-import { Post } from "@/types/Post/Post";
+import { Post } from "@/db/post";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -5,6 +5,7 @@ const nextConfig = {
       "via.placeholder.com",
       "***REMOVED***.s3.us-east-1.amazonaws.com",
       "www.***REMOVED***",
+      "lh3.googleusercontent.com",
     ],
   },
 };
