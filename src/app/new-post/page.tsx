@@ -18,6 +18,18 @@ export default function NewPostPage() {
 
   const validPost = title && body && imageURL;
 
+  const session: any = useSession();
+
+  if (!session || session.status !== "authenticated") {
+    redirect("/signin");
+  }
+
+  const { user }: { user: User } = session.data;
+
+  if (!user.poster) {
+    redirect("/");
+  }
+
   const handleSubmit = async () => {
     if (!validPost) {
       alert("Finish before posting!");
@@ -50,18 +62,6 @@ export default function NewPostPage() {
 
   if (slug) {
     redirect(`/post/${slug}`);
-  }
-
-  const session: any = useSession();
-
-  if (!session || session.status !== "authenticated") {
-    redirect("/signin");
-  }
-
-  const { user }: { user: User } = session.data;
-
-  if (!user.poster) {
-    redirect("/");
   }
 
   return (

@@ -38,25 +38,29 @@ export const parseItem = (item: any) => {
 
 export const isUserPoster = cache(async (id: string) => {
   const user = await getUserById(id);
-  if (user === undefined) {
+  if (!user) {
     return false;
   }
   return user.poster;
 });
 
 export const getUserById = cache(async (id: string) => {
-  const command = new GetCommand({
-    TableName: env.USERS_DYNAMO_TABLE,
-    Key: {
-      id: id,
-    },
-  });
-  const res = await client.send(command);
-  if (res.Item === undefined) {
-    return undefined;
+  try {
+    const command = new GetCommand({
+      TableName: env.USERS_DYNAMO_TABLE,
+      Key: {
+        id: id,
+      },
+    });
+    const res = await client.send(command);
+    if (res.Item === undefined) {
+      return null;
+    }
+    return parseItem(res.Item);
+  } catch (err) {
+    console.log(err);
+    return null;
   }
-
-  return parseItem(res.Item);
 });
 
 export async function createUser(user: User) {

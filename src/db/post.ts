@@ -41,14 +41,19 @@ const parseItem = (item: any) => {
 };
 
 export const getPostBySlug = cache(async (slug: string) => {
-  const command = new GetCommand({
-    TableName: env.POSTS_DYNAMO_TABLE,
-    Key: {
-      slug: slug,
-    },
-  });
-  const item = (await client.send(command)).Item;
-  return parseItem(item);
+  try {
+    const command = new GetCommand({
+      TableName: env.POSTS_DYNAMO_TABLE,
+      Key: {
+        slug: slug,
+      },
+    });
+    const item = (await client.send(command)).Item;
+    return parseItem(item);
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 });
 
 export const getAllPosts = cache(async () => {

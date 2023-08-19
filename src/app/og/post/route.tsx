@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const post = (await res.json()) as Post;
 
     res = await fetch(`${basePath}/api/user?id=` + post.authorId);
-    const user = (await res.json()) as User;
+    const user = (await res.json()) as  User | null;
 
     const fontDataBold = await fetch(
       new URL("../../../assets/YanoneKaffeesatz-Bold.ttf", import.meta.url),
@@ -53,13 +53,13 @@ export async function GET(req: NextRequest) {
                 tw={`flex m-2 mr-6 h-[${PFP_SIZE}px] w-[${PFP_SIZE}px] overflow-hidden rounded-full`}
               >
                 <img
-                  src={user.image ?? "https://www.***REMOVED***/pfp.jpg"}
+                  src={user?.image ?? "https://www.***REMOVED***/pfp.jpg"}
                   width={PFP_SIZE}
                   height={PFP_SIZE}
                   alt="pfp"
                 />
               </div>
-              <h2 tw="my-auto top-[0.12rem]">{user.name} </h2>
+              <h2 tw="my-auto top-[0.12rem]">{user?.name} </h2>
               <h3 tw="opacity-50 my-auto top-[0.12rem] ml-2">
                 {post.timestamp &&
                   `-  ${new Date(post.timestamp).toLocaleString(undefined, {
