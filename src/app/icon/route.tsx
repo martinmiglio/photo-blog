@@ -5,7 +5,7 @@ import { z } from "zod";
 export const runtime = "edge";
 
 const schema = z.object({
-  VERCEL_URL: z.string(),
+  PUBLIC_URL: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -15,7 +15,7 @@ export async function GET() {
     (
       <div tw="flex bg-transparent">
         <img
-          src={`https://${env.VERCEL_URL}/icon.svg`}
+          src={`https://${env.PUBLIC_URL}/icon.svg`}
           alt="***REMOVED***"
           height={64}
           width={64}

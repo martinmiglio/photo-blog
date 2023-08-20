@@ -12,8 +12,7 @@ import { z } from "zod";
 
 const schema = z.object({
   S3_DOMAIN: z.string(),
-  VERCEL_URL: z.string(),
-  PUBLIC_URL: z.string().optional(),
+  PUBLIC_URL: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -42,7 +41,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `post by ${user?.name} on ***REMOVED***`,
       description: "Emma Jo's blog",
-      images: [`https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og/post?slug=${slug}&v1`],
+      images: [`https://${env.PUBLIC_URL}/og/post?slug=${slug}&v1`],
     },
     openGraph: {
       type: "website",
@@ -51,7 +50,7 @@ export async function generateMetadata({
       siteName: "***REMOVED***",
       images: [
         {
-          url: `https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og/post?slug=${slug}&v1`,
+          url: `https://${env.PUBLIC_URL}/og/post?slug=${slug}&v1`,
           width: 1200,
           height: 630,
         },
@@ -122,7 +121,7 @@ export default async function PostPage({
         </ReactMarkdown>
       </div>
       <span className="flex gap-2">
-        <ShareButton url={`https://${env.VERCEL_URL}/post/${post.slug}`} />
+        <ShareButton url={`https://${env.PUBLIC_URL}/post/${post.slug}`} />
         {post.tags && <PostTags tags={post.tags} />}
       </span>
     </div>

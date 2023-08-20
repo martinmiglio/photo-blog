@@ -9,8 +9,7 @@ import { Yanone_Kaffeesatz as Font } from "next/font/google";
 import { z } from "zod";
 
 const schema = z.object({
-  VERCEL_URL: z.string(),
-  PUBLIC_URL: z.string().optional(),
+  PUBLIC_URL: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -23,13 +22,13 @@ export const metadata: Metadata = {
     template: "%s | ***REMOVED***",
   },
   description: "Emma Jo's blog",
-  metadataBase: new URL(`https://${env.PUBLIC_URL ?? env.VERCEL_URL}`),
+  metadataBase: new URL(`https://${env.PUBLIC_URL}`),
   icons: "icon?v1",
   twitter: {
     card: "summary_large_image",
     title: "***REMOVED***",
     description: "Emma Jo's blog",
-    images: [`https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og?v1`],
+    images: [`https://${env.PUBLIC_URL}/og?v1`],
   },
   openGraph: {
     type: "website",
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "***REMOVED***",
     images: [
       {
-        url: `https://${env.PUBLIC_URL ?? env.VERCEL_URL}/og?v1`,
+        url: `https://${env.PUBLIC_URL}/og?v1`,
         width: 1200,
         height: 630,
       },
