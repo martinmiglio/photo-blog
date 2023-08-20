@@ -5,7 +5,7 @@ import { z } from "zod";
 export const runtime = "edge";
 
 const schema = z.object({
-  VERCEL_URL: z.string(),
+  PUBLIC_URL: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -36,14 +36,14 @@ export async function GET() {
               toadtopia
             </h1>
             <img
-              src={`https://${env.VERCEL_URL}/icon.svg`}
+              src={`https://${env.PUBLIC_URL}/icon.svg`}
               alt="toadtopia"
               height={350}
               width={350}
             />
           </div>
           <h4 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
-            {env.VERCEL_URL}
+            {env.PUBLIC_URL}
           </h4>
         </div>
       ),

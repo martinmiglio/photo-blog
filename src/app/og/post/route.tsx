@@ -7,7 +7,7 @@ import { z } from "zod";
 export const runtime = "edge";
 
 const schema = z.object({
-  VERCEL_URL: z.string(),
+  PUBLIC_URL: z.string(),
   S3_DOMAIN: z.string(),
 });
 
@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
             <h4 tw="flex text-9xl my-auto">&quot;{post.title}&quot;</h4>
           </div>
           <h5 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
-            {env.VERCEL_URL}/post/{post.slug.slice(0, 9)}...
+            {env.PUBLIC_URL}/post/{post.slug.slice(0, 9)}...
           </h5>
         </div>
       ),
