@@ -36,13 +36,19 @@ export default function NewPostPage() {
       return;
     }
 
+    const slug =
+      title
+        .replace(/[^a-zA-Z0-9]/g, "")
+        .toLowerCase()
+        .replaceAll(" ", "-") +
+      "-" +
+      new Date().getTime();
+
     const post: Post = {
       title: title,
       body: body,
       imageURL: imageURL,
-      slug: encodeURIComponent(
-        `${title.toLowerCase()} ${new Date().getTime()}`.replaceAll(" ", "-"),
-      ),
+      slug: slug,
       timestamp: new Date().toISOString(),
       authorId: user.id,
       tags: tags,
