@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { APIRoute, sanitizeKey } from "next-s3-upload";
 import { z } from "zod";
 
@@ -16,6 +17,9 @@ export default APIRoute.configure({
   bucket: env.S3_UPLOAD_BUCKET,
   region: env.S3_UPLOAD_REGION,
   key(req, filename) {
-    return `images/${Date.now()}-${sanitizeKey(filename)}`;
+    const originalExtension = filename.split(".").pop();
+    const hash = createHash("sha256").update(`${Date.now()}-${filename}`);
+    const newName = `${hash.digest("hex")}.${originalExtension}`;
+    return `images/${sanitizeKey(newName)}`;
   },
 });
