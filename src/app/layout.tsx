@@ -6,10 +6,12 @@ import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 import type { Metadata } from "next";
 import { Session, getServerSession } from "next-auth";
 import { Yanone_Kaffeesatz as Font } from "next/font/google";
+import Script from "next/script";
 import { z } from "zod";
 
 const schema = z.object({
   PUBLIC_URL: z.string(),
+  ANALYTICS_ID: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -59,6 +61,13 @@ export default async function RootLayout({
     await getServerSession(authOptions);
   return (
     <html lang="en" className="bg-theme-200">
+      <head>
+        <Script
+          async
+          src="***REMOVED***"
+          data-website-id={env.ANALYTICS_ID}
+        />
+      </head>
       <body className={font.className}>
         <AuthSessionProvider session={session}>
           <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between p-4">
