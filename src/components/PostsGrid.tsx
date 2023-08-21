@@ -1,5 +1,5 @@
+import Image from "@/components/Image";
 import { Post } from "@/db/post";
-import Image from "next/image";
 import Link from "next/link";
 
 function PostsGridItem({ post }: { post: Post }) {

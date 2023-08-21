@@ -1,9 +1,9 @@
+import Image from "@/components/Image";
 import PostTags from "@/components/PostTags";
 import ShareButton from "@/components/ShareButton";
 import { getUserById } from "@/db/auth";
 import { getPostBySlug } from "@/db/post";
 import { Metadata } from "next";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeRewrite from "rehype-rewrite";
@@ -98,8 +98,8 @@ export default async function PostPage({
       </div>
       <Image
         src={post.imageURL}
-        width={768}
-        height={432}
+        width={736}
+        height={981}
         alt="Showcase"
         priority
         quality={100}
