@@ -20,7 +20,7 @@ export default function ShareButton({
       }}
       sites={["facebook", "twitter", "reddit", "copy"]}
     >
-      <button className="rounded border-b-4 border-theme-700 bg-theme-500 text-md font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 h-8 flex items-center gap-2 p-2">
+      <button className="rounded border-b-4 border-theme-700 bg-theme-500 text-md font-medium text-theme-50 hover:border-theme-500 hover:bg-theme-400 h-8 flex items-center gap-2 p-2">
         <FontAwesomeIcon icon={faShareFromSquare} />
         share
       </button>
