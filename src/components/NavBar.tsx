@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut, signIn } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -26,9 +26,12 @@ export default function NavBar() {
                 sign out
               </button>
             ) : (
-              <Link className="hover:underline" href="/signin">
+              <button
+                className="hover:underline"
+                onClick={() => signIn("google")}
+              >
                 sign in
-              </Link>
+              </button>
             )}
           </div>
           <div className="absolute flex gap-4 right-0">
