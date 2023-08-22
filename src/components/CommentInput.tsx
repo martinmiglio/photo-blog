@@ -5,7 +5,6 @@ import { Comment } from "@/db/comment";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
-import { set } from "zod";
 
 export default function CommentInput({ postSlug }: { postSlug: string }) {
   const [value, setValue] = useState<string | undefined>();
@@ -49,23 +48,21 @@ export default function CommentInput({ postSlug }: { postSlug: string }) {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-3">
-        <input
-          type="text"
-          className="p-2 text-lg font-light text-theme-700 bg-theme-50 rounded-md"
-          placeholder="new comment"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <button
-          className="p-2 text-lg border-theme-700 bg-theme-500  font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
-          disabled={!value || value.length === 0}
-          onClick={onSubmit}
-        >
-          Submit
-        </button>
-      </div>
+    <div className="inline-flex w-full">
+      <input
+        type="text"
+        className="p-2 pl-3 text-lg font-light text-theme-700 bg-theme-50 rounded-l flex-grow"
+        placeholder="new comment"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <button
+        className="px-4 text-lg border-b-4 border-theme-700 bg-theme-500  font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 disabled:cursor-not-allowed disabled:opacity-50 rounded-r"
+        disabled={!value || value.length === 0}
+        onClick={onSubmit}
+      >
+        Submit
+      </button>
     </div>
   );
 }
