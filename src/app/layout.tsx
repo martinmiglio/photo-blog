@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   description: "Emma Jo's blog",
   metadataBase: new URL(`https://${env.PUBLIC_URL}`),
-  icons: "icon?v1",
+  icons: `https://${env.PUBLIC_URL}/icon?v2`,
   twitter: {
     card: "summary_large_image",
     title: "***REMOVED***",
