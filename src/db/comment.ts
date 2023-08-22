@@ -39,19 +39,19 @@ export const getCommentsByPostSlug = cache(async (postSlug: string) => {
   try {
     const command = new QueryCommand({
       TableName: env.COMMENTS_DYNAMO_TABLE,
-      KeyConditionExpression: '#ps = :ps',
+      KeyConditionExpression: "#ps = :ps",
       ExpressionAttributeValues: {
-          ':ps': postSlug,
+        ":ps": postSlug,
       },
       ExpressionAttributeNames: {
-          '#ps': 'postSlug',
+        "#ps": "postSlug",
       },
     });
     const items = (await client.send(command)).Items;
     if (!items) {
       return [];
     }
-    console.log(items)
+    console.log(items);
     return items.map((item) => parseItem(item));
   } catch (err) {
     console.log(err);
