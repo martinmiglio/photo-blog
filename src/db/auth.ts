@@ -5,14 +5,6 @@ import { cache } from "react";
 import "server-only";
 import { z } from "zod";
 
-export type User = {
-  id: string;
-  email?: string;
-  poster: boolean;
-  name?: string;
-  image?: string;
-};
-
 const schema = z.object({
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),
@@ -25,6 +17,14 @@ const client = new DynamoDBClient({
   credentials: fromEnv(),
   region: env.DYNAMO_REGION,
 });
+
+export type User = {
+  id: string;
+  email?: string;
+  poster: boolean;
+  name?: string;
+  image?: string;
+};
 
 export const parseItem = (item: any) => {
   return {

@@ -1,19 +1,10 @@
+import { Comment } from "./comment";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { fromEnv } from "@aws-sdk/credential-providers";
 import { GetCommand, ScanCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { cache } from "react";
 import "server-only";
 import { z } from "zod";
-
-export type Post = {
-  title: string;
-  imageURL: string;
-  slug: string;
-  authorId: string;
-  timestamp: string;
-  body?: string;
-  tags?: string[];
-};
 
 const schema = z.object({
   AWS_ACCESS_KEY_ID: z.string(),
@@ -27,6 +18,17 @@ const client = new DynamoDBClient({
   credentials: fromEnv(),
   region: env.DYNAMO_REGION,
 });
+
+export type Post = {
+  title: string;
+  imageURL: string;
+  slug: string;
+  authorId: string;
+  timestamp: string;
+  body?: string;
+  tags?: string[];
+  comments?: Comment[];
+};
 
 const parseItem = (item: any) => {
   return {

@@ -4,11 +4,17 @@ import { faShareFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RWebShare } from "react-web-share";
 
-export default function ShareButton({ url }: { url: string }) {
+export default function ShareButton({
+  url,
+  text,
+}: {
+  url: string;
+  text?: string;
+}) {
   return (
     <RWebShare
       data={{
-        text: "***REMOVED***",
+        text: text ?? "***REMOVED***",
         url: url,
         title: "share ***REMOVED*** page",
       }}
