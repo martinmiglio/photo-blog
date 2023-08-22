@@ -1,4 +1,5 @@
 import CommentInput from "./CommentInput";
+import DateDisplay from "@/components/DateDisplay";
 import Image from "@/components/Image";
 import { getUserById } from "@/db/auth";
 import { Comment } from "@/db/comment";
@@ -43,11 +44,12 @@ async function CommentCard({ comment }: { comment: Comment }) {
         <div>
           <div className="relative md:text-1xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem] flex gap-1">
             <div className="font-semibold">{user?.name}</div>
-            {comment.timestamp &&
-              ` - ${new Date(comment.timestamp).toLocaleString(undefined, {
-                dateStyle: "short",
-                timeStyle: "short",
-              })}`}
+            {comment.timestamp && (
+              <>
+                <div> - </div>
+                <DateDisplay date={comment.timestamp} />
+              </>
+            )}
           </div>
           <div className="text-2xl font-[350] text-theme-950">
             {comment.body}

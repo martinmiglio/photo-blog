@@ -1,3 +1,4 @@
+import DateDisplay from "@/components/DateDisplay";
 import Image from "@/components/Image";
 import PostTags from "@/components/PostTags";
 import ShareButton from "@/components/ShareButton";
@@ -37,11 +38,12 @@ export default function PostDisplay({
         </div>
         <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem] flex gap-1">
           <div className="font-semibold">{user?.name}</div>
-          {post.timestamp &&
-            ` - ${new Date(post.timestamp).toLocaleString(undefined, {
-              dateStyle: "short",
-              timeStyle: "short",
-            })}`}
+          {post.timestamp && (
+            <>
+              <div> - </div>
+              <DateDisplay date={post.timestamp} />
+            </>
+          )}
         </h2>
       </div>
       <Image
