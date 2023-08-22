@@ -13,7 +13,9 @@ export default function CommentInput({ postSlug }: { postSlug: string }) {
 
   useEffect(() => {
     if (submitted) {
-      redirect(`/post/${postSlug}?${new Date().getUTCSeconds()}`);
+      redirect(
+        `/post/${postSlug}?update=${new Date().getTime()}#comment-display`,
+      );
     }
   }, [postSlug, submitted]);
 

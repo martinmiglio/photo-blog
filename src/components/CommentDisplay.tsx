@@ -19,7 +19,7 @@ export default function CommentDisplay({
   postSlug: string;
 }) {
   return (
-    <div className="flex flex-col gap-3 divide-y divide-theme-300">
+    <div className="flex flex-col gap-3 divide-y divide-theme-300" id="comment-display">
       {comments?.map((comment) => (
         <CommentCard key={comment.timestamp} comment={comment} />
       ))}
