@@ -67,13 +67,10 @@ export function TagsInput({
 
     const tags =
       value
-        ?.split(",") // Split by comma
-        .map((tag) =>
-          tag
-            .replaceAll(/[^a-zA-Z0-9]/g, "")
-            .toLowerCase()
-            .trim(),
-        ) // Remove non-alphabetical characters
+        ?.replaceAll(/[^a-zA-Z0-9]/g, "") // Remove non-alphabetical characters
+        .toLowerCase()
+        .split(" ") // Split by whitespace
+        .map((tag) => tag.trim()) // Remove whitespace
         .filter((tag) => tag !== "") // Remove empty tags
         .filter((tag, index, self) => self.indexOf(tag) === index) ?? []; // Remove duplicates
     handleTagsChange?.(tags);
@@ -82,7 +79,7 @@ export function TagsInput({
   return (
     <input
       type="text"
-      placeholder="Tags, separated by commas (optional)"
+      placeholder="Tags, separated by spaces"
       className="w-full rounded border-b-4 border-theme-700 pl-2 pt-1 font-[350] text-theme-600 focus:border-theme-500 focus:bg-theme-100 text-xl"
       value={value}
       onChange={(e) => onChange(e.target.value)}
