@@ -33,11 +33,11 @@ async function CommentCard({ comment }: { comment: Comment }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-2">
-        <div className="m-2 h-6 w-6 cursor-pointer overflow-hidden rounded-full">
+        <div className="m-2 h-6 w-6 overflow-hidden rounded-full">
           <Image
             src={user?.image ?? `https://${env.S3_DOMAIN}/images/pfp.jpg`}
-            width={35}
-            height={35}
+            width={40}
+            height={40}
             alt={`${user?.name} pfp`}
           />
         </div>

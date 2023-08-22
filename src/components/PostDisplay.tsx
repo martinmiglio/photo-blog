@@ -28,7 +28,7 @@ export default function PostDisplay({
         {post.title}
       </h1>
       <div className="flex items-center gap-2">
-        <div className="m-2 h-10 w-10 cursor-pointer overflow-hidden rounded-full">
+        <div className="m-2 h-10 w-10 overflow-hidden rounded-full">
           <Image
             src={user?.image ?? `https://${env.S3_DOMAIN}/images/pfp.jpg`}
             width={40}
@@ -53,6 +53,7 @@ export default function PostDisplay({
         alt="Showcase"
         priority
         quality={100}
+        className="h-auto"
       />
       <div className="text-2xl font-[350] text-theme-950">
         <ReactMarkdown
