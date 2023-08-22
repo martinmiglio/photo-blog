@@ -51,10 +51,9 @@ export const getCommentsByPostSlug = cache(async (postSlug: string) => {
     if (!items) {
       return [];
     }
-    console.log(items);
     return items.map((item) => parseItem(item));
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return null;
   }
 });

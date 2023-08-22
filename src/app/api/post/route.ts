@@ -19,12 +19,10 @@ export async function POST(req: NextRequest) {
   }
   try {
     const post: Post = await req.json();
-    console.log(post);
-    const response = await createPost(post);
-    console.log(response);
+    await createPost(post);
     return NextResponse.json({ message: "Post created" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.error();
   }
 }

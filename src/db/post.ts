@@ -53,7 +53,7 @@ export const getPostBySlug = cache(async (slug: string) => {
     const item = (await client.send(command)).Item;
     return parseItem(item);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return null;
   }
 });

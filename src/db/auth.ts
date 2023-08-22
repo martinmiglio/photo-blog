@@ -58,7 +58,7 @@ export const getUserById = cache(async (id: string) => {
     }
     return parseItem(res.Item);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return null;
   }
 });

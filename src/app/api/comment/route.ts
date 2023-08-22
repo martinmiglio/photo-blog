@@ -9,12 +9,10 @@ export async function POST(req: NextRequest) {
   }
   try {
     const comment: Comment = await req.json();
-    console.log(comment);
-    const response = await createComment(comment);
-    console.log(response);
+    await createComment(comment);
     return NextResponse.json({ message: "Comment created" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.error();
   }
 }
