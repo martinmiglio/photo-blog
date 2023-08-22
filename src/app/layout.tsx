@@ -70,7 +70,7 @@ export default async function RootLayout({
       </head>
       <body className={font.className}>
         <AuthSessionProvider session={session}>
-          <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between p-4">
+          <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between px-4">
             <div className="flex flex-col">
               <NavBar />
               {children}
