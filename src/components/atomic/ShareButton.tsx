@@ -14,9 +14,8 @@ export default function ShareButton({
   return (
     <RWebShare
       data={{
-        text: text ?? "***REMOVED***",
+        text: text,
         url: url,
-        title: "share ***REMOVED*** page",
       }}
       sites={["facebook", "twitter", "reddit", "copy"]}
     >

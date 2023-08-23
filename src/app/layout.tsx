@@ -10,8 +10,11 @@ import Script from "next/script";
 import { z } from "zod";
 
 const schema = z.object({
+  BLOG_TITLE: z.string(),
+  BLOG_DESCRIPTION: z.string(),
   PUBLIC_URL: z.string(),
   ANALYTICS_ID: z.string(),
+  ANALYTICS_URL: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -20,23 +23,23 @@ const font = Font({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "***REMOVED***",
-    template: "%s | ***REMOVED***",
+    default: env.BLOG_TITLE,
+    template: `%s | ${env.BLOG_TITLE}`,
   },
-  description: "Emma Jo's blog",
+  description: env.BLOG_DESCRIPTION,
   metadataBase: new URL(`https://${env.PUBLIC_URL}`),
   icons: `https://${env.PUBLIC_URL}/icon?v2`,
   twitter: {
     card: "summary_large_image",
-    title: "***REMOVED***",
-    description: "Emma Jo's blog",
+    title: env.BLOG_TITLE,
+    description: env.BLOG_DESCRIPTION,
     images: [`https://${env.PUBLIC_URL}/og?v1`],
   },
   openGraph: {
     type: "website",
-    title: "***REMOVED***",
-    description: "Emma Jo's blog",
-    siteName: "***REMOVED***",
+    title: env.BLOG_TITLE,
+    description: env.BLOG_DESCRIPTION,
+    siteName: env.BLOG_TITLE,
     images: [
       {
         url: `https://${env.PUBLIC_URL}/og?v1`,
@@ -64,7 +67,7 @@ export default async function RootLayout({
       <head>
         <Script
           async
-          src="***REMOVED***"
+          src={env.ANALYTICS_URL}
           data-website-id={env.ANALYTICS_ID}
         />
       </head>
@@ -72,7 +75,7 @@ export default async function RootLayout({
         <AuthSessionProvider session={session}>
           <div className="mx-auto flex h-screen w-full max-w-screen-md flex-col justify-between px-4">
             <div className="flex flex-col">
-              <NavBar />
+              <NavBar title={env.BLOG_TITLE} />
               {children}
             </div>
             <FooterBar />

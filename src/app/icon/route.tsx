@@ -1,6 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/server";
 import { z } from "zod";
+
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 
 export const runtime = "edge";
 
@@ -16,7 +18,6 @@ export async function GET() {
       <div tw="flex bg-transparent">
         <img
           src={`https://${env.PUBLIC_URL}/icon.svg`}
-          alt="***REMOVED***"
           height={64}
           width={64}
         />

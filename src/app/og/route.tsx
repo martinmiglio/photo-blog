@@ -1,11 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/server";
 import { z } from "zod";
+
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 
 export const runtime = "edge";
 
 const schema = z.object({
   PUBLIC_URL: z.string(),
+  BLOG_TITLE: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -33,11 +36,10 @@ export async function GET() {
               style={{ fontFamily: '"Bold"' }}
               tw="text-[#3D0A1F] py-8 text-9xl"
             >
-              ***REMOVED***
+              {env.BLOG_TITLE}
             </h1>
             <img
               src={`https://${env.PUBLIC_URL}/icon.svg`}
-              alt="***REMOVED***"
               height={350}
               width={350}
             />

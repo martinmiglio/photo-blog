@@ -7,6 +7,7 @@ import { z } from "zod";
 export const runtime = "edge";
 
 const schema = z.object({
+  BLOG_TITLE: z.string(),
   PUBLIC_URL: z.string(),
   S3_DOMAIN: z.string(),
 });
@@ -52,7 +53,7 @@ export async function GET(req: NextRequest) {
         >
           <div tw="flex flex-col items-center">
             <h1 style={{ fontFamily: '"Bold"' }} tw="pt-8 text-9xl">
-              ***REMOVED***
+              {env.BLOG_TITLE}
             </h1>
           </div>
           <div tw="flex flex-col mx-16 flex-grow">

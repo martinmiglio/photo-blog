@@ -10,6 +10,7 @@ import gfm from "remark-gfm";
 import { z } from "zod";
 
 const schema = z.object({
+  BLOG_TITLE: z.string(),
   S3_DOMAIN: z.string(),
   PUBLIC_URL: z.string(),
 });
@@ -74,9 +75,9 @@ export default function PostDisplay({
       <span className="flex gap-2">
         <ShareButton
           url={`https://${env.PUBLIC_URL}/post/${post.slug}`}
-          text={`check out this post${
-            user ? " by " + user?.name : ""
-          } on ***REMOVED***`}
+          text={`check out this post${user ? " by " + user?.name : ""} on ${
+            env.BLOG_TITLE
+          }`}
         />
         {post.tags && <PostTags tags={post.tags} />}
       </span>

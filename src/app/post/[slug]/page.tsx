@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
+  BLOG_TITLE: z.string(),
   S3_DOMAIN: z.string(),
   PUBLIC_URL: z.string(),
 });
@@ -36,15 +37,12 @@ export async function generateMetadata({
     title: post.title,
     twitter: {
       card: "summary_large_image",
-      title: `post by ${user?.name} on ***REMOVED***`,
-      description: "Emma Jo's blog",
+      title: `post by ${user?.name} on ${env.BLOG_TITLE}`,
       images: [`https://${env.PUBLIC_URL}/og/post?slug=${slug}&v1`],
     },
     openGraph: {
       type: "website",
-      title: `post by ${user?.name} on ***REMOVED***`,
-      description: "Emma Jo's blog",
-      siteName: "***REMOVED***",
+      title: `post by ${user?.name} on ${env.BLOG_TITLE}`,
       images: [
         {
           url: `https://${env.PUBLIC_URL}/og/post?slug=${slug}&v1`,
