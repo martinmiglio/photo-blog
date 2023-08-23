@@ -98,7 +98,7 @@ export function TagsBrowserHeader({
           return (
             <div
               key={tag}
-              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 transition-colors ${backgroundColorClass}`}
+              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 transition-colors cursor-pointer ${backgroundColorClass}`}
               onClick={() => setSelectedTag(tag)}
             >
               {tag}
