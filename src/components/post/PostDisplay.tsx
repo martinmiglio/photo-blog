@@ -11,7 +11,7 @@ import { z } from "zod";
 
 const schema = z.object({
   BLOG_TITLE: z.string(),
-  S3_DOMAIN: z.string(),
+  CDN_DOMAIN: z.string(),
   PUBLIC_URL: z.string(),
 });
 const env = schema.parse(process.env);
@@ -31,7 +31,7 @@ export default function PostDisplay({
       <div className="flex items-center gap-2">
         <div className="m-2 h-10 w-10 overflow-hidden rounded-full">
           <Image
-            src={user?.image ?? `https://${env.S3_DOMAIN}/images/pfp.jpg`}
+            src={user?.image ?? `https://${env.CDN_DOMAIN}/images/pfp.jpg`}
             width={40}
             height={40}
             alt={`${user?.name} pfp`}

@@ -9,7 +9,7 @@ export const runtime = "edge";
 const schema = z.object({
   BLOG_TITLE: z.string(),
   PUBLIC_URL: z.string(),
-  S3_DOMAIN: z.string(),
+  CDN_DOMAIN: z.string(),
 });
 
 const env = schema.parse(process.env);
@@ -62,7 +62,9 @@ export async function GET(req: NextRequest) {
                 tw={`flex m-2 mr-6 h-[${PFP_SIZE}px] w-[${PFP_SIZE}px] overflow-hidden rounded-full`}
               >
                 <img
-                  src={user?.image ?? `https://${env.S3_DOMAIN}/images/pfp.jpg`}
+                  src={
+                    user?.image ?? `https://${env.CDN_DOMAIN}/images/pfp.jpg`
+                  }
                   width={PFP_SIZE}
                   height={PFP_SIZE}
                   alt="pfp"

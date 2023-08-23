@@ -9,7 +9,7 @@ import { z } from "zod";
 
 const schema = z.object({
   BLOG_TITLE: z.string(),
-  S3_DOMAIN: z.string(),
+  CDN_DOMAIN: z.string(),
   PUBLIC_URL: z.string(),
 });
 

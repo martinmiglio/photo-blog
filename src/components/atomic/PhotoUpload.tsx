@@ -5,9 +5,11 @@ import { useS3Upload } from "next-s3-upload";
 import { useState } from "react";
 
 export default function PhotoUpload({
-  handleFileChange: hook,
+  cdnDomain,
+  handleImageURLChange: hook,
 }: {
-  handleFileChange?: (url: string) => void;
+  cdnDomain: string;
+  handleImageURLChange?: (url: string) => void;
 }) {
   const [imageUrl, setImageUrl] = useState<string | null>();
   const [inProgress, setInProgress] = useState<boolean>(false);
@@ -15,7 +17,8 @@ export default function PhotoUpload({
 
   const handleFileChange = async (file: File) => {
     setInProgress(true);
-    let { url } = await uploadToS3(file);
+    const { key } = await uploadToS3(file);
+    const url = `https://${cdnDomain}/${key}`;
     hook?.(url);
     setImageUrl(url);
     setInProgress(false);
