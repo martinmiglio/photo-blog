@@ -27,7 +27,6 @@ export type Post = {
   timestamp: string;
   body?: string;
   tags?: string[];
-  comments?: Comment[];
 };
 
 const parseItem = (item: any) => {
