@@ -1,6 +1,6 @@
 import CommentInput from "./CommentInput";
-import DateDisplay from "@/components/DateDisplay";
-import Image from "@/components/Image";
+import DateDisplay from "@/components/atomic/DateDisplay";
+import Image from "@/components/atomic/Image";
 import { getUserById } from "@/db/auth";
 import { Comment } from "@/db/comment";
 import { z } from "zod";
@@ -19,7 +19,10 @@ export default function CommentDisplay({
   postSlug: string;
 }) {
   return (
-    <div className="flex flex-col gap-3 divide-y divide-theme-300" id="comment-display">
+    <div
+      className="flex flex-col gap-3 divide-y divide-theme-300"
+      id="comment-display"
+    >
       {comments?.map((comment) => (
         <CommentCard key={comment.timestamp} comment={comment} />
       ))}

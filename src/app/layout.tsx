@@ -1,8 +1,8 @@
 import authOptions from "./api/auth/[...nextauth]/authOptions";
 import "./globals.css";
-import FooterBar from "@/components/FooterBar";
-import NavBar from "@/components/NavBar";
 import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
+import FooterBar from "@/components/page/FooterBar";
+import NavBar from "@/components/page/NavBar";
 import type { Metadata } from "next";
 import { Session, getServerSession } from "next-auth";
 import { Yanone_Kaffeesatz as Font } from "next/font/google";

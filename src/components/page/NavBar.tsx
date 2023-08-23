@@ -10,8 +10,7 @@ export default function NavBar() {
   const signedIn = session && session.status === "authenticated";
   const isPoster = signedIn && session.data.user.poster;
   const pathname = usePathname();
-  const showNav =
-    !pathname?.startsWith("/signin") && !pathname?.startsWith("/new-post");
+  const showNav = !pathname?.startsWith("/new-post");
 
   return (
     <div className="relative flex w-full justify-between py-2">

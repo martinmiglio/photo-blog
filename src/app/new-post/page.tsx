@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "@/components/Image";
-import PhotoUpload from "@/components/PhotoUpload";
-import { BodyInput, TagsInput, TitleInput } from "@/components/PostInput";
+import Image from "@/components/atomic/Image";
+import PhotoUpload from "@/components/atomic/PhotoUpload";
+import { BodyInput, TagsInput, TitleInput } from "@/components/post/PostInput";
 import { User } from "@/db/auth";
 import { Post } from "@/db/post";
 import { useSession } from "next-auth/react";

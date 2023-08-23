@@ -1,5 +1,5 @@
-import CommentDisplay from "@/components/CommentDisplay";
-import PostDisplay from "@/components/PostDisplay";
+import PostDisplay from "@/components/post/PostDisplay";
+import CommentDisplay from "@/components/post/comment/CommentDisplay";
 import { getUserById } from "@/db/auth";
 import { getCommentsByPostSlug } from "@/db/comment";
 import { getPostBySlug } from "@/db/post";

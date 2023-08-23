@@ -1,4 +1,4 @@
-import Image from "@/components/Image";
+import Image from "@/components/atomic/Image";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useS3Upload } from "next-s3-upload";

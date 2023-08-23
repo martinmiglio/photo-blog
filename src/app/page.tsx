@@ -1,4 +1,4 @@
-import { TagsBrowser } from "@/components/TagsBrowser";
+import { TagsBrowser } from "@/components/post/browser/TagsBrowser";
 import { getAllPosts } from "@/db/post";
 
 export const dynamic = "force-dynamic";

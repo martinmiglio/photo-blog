@@ -1,7 +1,7 @@
-import DateDisplay from "@/components/DateDisplay";
-import Image from "@/components/Image";
-import PostTags from "@/components/PostTags";
-import ShareButton from "@/components/ShareButton";
+import PostTags from "./PostTags";
+import DateDisplay from "@/components/atomic/DateDisplay";
+import Image from "@/components/atomic/Image";
+import ShareButton from "@/components/atomic/ShareButton";
 import { User } from "@/db/auth";
 import { Post } from "@/db/post";
 import ReactMarkdown from "react-markdown";

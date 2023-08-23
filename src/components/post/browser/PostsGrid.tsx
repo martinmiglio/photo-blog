@@ -1,4 +1,4 @@
-import Image from "@/components/Image";
+import Image from "@/components/atomic/Image";
 import { Post } from "@/db/post";
 import Link from "next/link";
 
