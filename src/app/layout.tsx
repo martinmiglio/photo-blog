@@ -1,11 +1,11 @@
-import authOptions from "./api/auth/[...nextauth]/authOptions";
-import "./globals.css";
+import authOptions from "@/app/api/auth/[...nextauth]/authOptions";
 import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 import FooterBar from "@/components/page/FooterBar";
 import NavBar from "@/components/page/NavBar";
+import { font } from "@/styles/fonts";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Session, getServerSession } from "next-auth";
-import { Yanone_Kaffeesatz as Font } from "next/font/google";
 import Script from "next/script";
 import { z } from "zod";
 
@@ -18,8 +18,6 @@ const schema = z.object({
 });
 
 const env = schema.parse(process.env);
-
-const font = Font({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
