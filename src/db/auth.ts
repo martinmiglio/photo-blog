@@ -1,22 +1,13 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { fromEnv } from "@aws-sdk/credential-providers";
+import { client } from "@/db/client";
 import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { cache } from "react";
 import "server-only";
 import { z } from "zod";
 
 const schema = z.object({
-  AWS_ACCESS_KEY_ID: z.string(),
-  AWS_SECRET_ACCESS_KEY: z.string(),
-  USERS_DYNAMO_TABLE: z.string(),
-  DYNAMO_REGION: z.string(),
+  AWS_RESOURCE_PREFIX: z.string(),
 });
 const env = schema.parse(process.env);
-
-const client = new DynamoDBClient({
-  credentials: fromEnv(),
-  region: env.DYNAMO_REGION,
-});
 
 export type User = {
   id: string;
@@ -47,7 +38,7 @@ export const isUserPoster = cache(async (id: string) => {
 export const getUserById = cache(async (id: string) => {
   try {
     const command = new GetCommand({
-      TableName: env.USERS_DYNAMO_TABLE,
+      TableName: `${env.AWS_RESOURCE_PREFIX}-users`,
       Key: {
         id: id,
       },
@@ -65,7 +56,7 @@ export const getUserById = cache(async (id: string) => {
 
 export async function createUser(user: User) {
   const command = new PutCommand({
-    TableName: env.USERS_DYNAMO_TABLE,
+    TableName: `${env.AWS_RESOURCE_PREFIX}-users`,
     Item: user,
   });
   return await client.send(command);

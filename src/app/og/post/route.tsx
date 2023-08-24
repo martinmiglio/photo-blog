@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
               >
                 <img
                   src={
-                    user?.image ?? `https://${env.CDN_DOMAIN}/images/pfp.jpg`
+                    user?.image ?? `https://${env.CDN_DOMAIN}/pfp.jpg`
                   }
                   width={PFP_SIZE}
                   height={PFP_SIZE}

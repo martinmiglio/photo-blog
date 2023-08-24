@@ -38,7 +38,7 @@ async function CommentCard({ comment }: { comment: Comment }) {
       <div className="flex gap-2">
         <div className="m-2 h-6 w-6 overflow-hidden rounded-full">
           <Image
-            src={user?.image ?? `https://${env.CDN_DOMAIN}/images/pfp.jpg`}
+            src={user?.image ?? `https://${env.CDN_DOMAIN}/pfp.jpg`}
             width={40}
             height={40}
             alt={`${user?.name} pfp`}
