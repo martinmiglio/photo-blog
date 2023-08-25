@@ -13,8 +13,8 @@ const schema = z.object({
   BLOG_TITLE: z.string(),
   BLOG_DESCRIPTION: z.string(),
   PUBLIC_URL: z.string(),
-  ANALYTICS_ID: z.string(),
-  ANALYTICS_URL: z.string(),
+  ANALYTICS_ID: z.string().optional(),
+  ANALYTICS_URL: z.string().optional(),
 });
 
 const env = schema.parse(process.env);
@@ -63,11 +63,13 @@ export default async function RootLayout({
   return (
     <html lang="en" className="bg-theme-200">
       <head>
-        <Script
-          async
-          src={env.ANALYTICS_URL}
-          data-website-id={env.ANALYTICS_ID}
-        />
+        {env.ANALYTICS_URL && env.ANALYTICS_ID && (
+          <Script
+            async
+            src={env.ANALYTICS_URL}
+            data-website-id={env.ANALYTICS_ID}
+          />
+        )}
       </head>
       <body className={font.className}>
         <AuthSessionProvider session={session}>
