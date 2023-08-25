@@ -1,0 +1,252 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "Formation template for the blog"
+
+Parameters:
+  ResourcePrefix:
+    Description: prefix for all resources, can include lowercase letters (a-z), numbers (0-9), and dashes (-). must be unique within an aws region
+    Type: String
+  CDNDomain:
+    Description: domain name for the cdn
+    Type: String
+
+Transform: "AWS::LanguageExtensions"
+
+Resources:
+  PostsTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "slug"
+          AttributeType: "S"
+      TableName: !Sub "${ResourcePrefix}-posts"
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: "true"
+      KeySchema:
+        - AttributeName: "slug"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  UsersTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "id"
+          AttributeType: "S"
+      TableName: !Sub "${ResourcePrefix}-users"
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: "true"
+      KeySchema:
+        - AttributeName: "id"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  CommentsTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "postSlug"
+          AttributeType: "S"
+        - AttributeName: "timestamp"
+          AttributeType: "S"
+      TableName: !Sub "${ResourcePrefix}-comments"
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: "true"
+      KeySchema:
+        - AttributeName: "postSlug"
+          KeyType: "HASH"
+        - AttributeName: "timestamp"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub "${ResourcePrefix}-bucket"
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: ""
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: "AES256"
+            BucketKeyEnabled: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - "*"
+            AllowedMethods:
+              - "PUT"
+              - "POST"
+            AllowedOrigins:
+              - "*"
+            ExposedHeaders:
+              - "ETag"
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: "BucketOwnerEnforced"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  S3BucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref S3Bucket
+      PolicyDocument:
+        Version: "2008-10-17"
+        Id: "PolicyForCloudFrontPrivateContent"
+        Statement:
+          - Sid: "AllowCloudFrontServicePrincipal"
+            Effect: "Allow"
+            Principal:
+              Service: "cloudfront.amazonaws.com"
+            Action: "s3:GetObject"
+            Resource: !Sub
+              - "${bucketARN}/*"
+              - { bucketARN: !GetAtt S3Bucket.Arn }
+            Condition:
+              StringEquals:
+                "AWS:SourceArn": !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
+
+  CloudFrontDistribution:
+    Type: "AWS::CloudFront::Distribution"
+    Properties:
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: "true"
+      DistributionConfig:
+        Origins:
+          - ConnectionAttempts: 3
+            ConnectionTimeout: 10
+            DomainName: !GetAtt S3Bucket.RegionalDomainName
+            Id: !GetAtt S3Bucket.RegionalDomainName
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+            OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - "HEAD"
+            - "GET"
+          CachedMethods:
+            - "HEAD"
+            - "GET"
+          Compress: true
+          SmoothStreaming: false
+          TargetOriginId: !GetAtt S3Bucket.RegionalDomainName
+          ViewerProtocolPolicy: "redirect-to-https"
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+        Comment: !Sub "${ResourcePrefix} cdn"
+        PriceClass: "PriceClass_100"
+        Enabled: true
+        Restrictions:
+          GeoRestriction:
+            RestrictionType: "none"
+        HttpVersion: "http2"
+        Aliases:
+          - !Sub "${CDNDomain}"
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateManagerCertificate
+          MinimumProtocolVersion: TLSv1.2_2021
+          SslSupportMethod: sni-only
+        IPV6Enabled: true
+
+  CloudFrontOriginAccessControl:
+    Type: "AWS::CloudFront::OriginAccessControl"
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${ResourcePrefix}-origin-access-control"
+        OriginAccessControlOriginType: "s3"
+        SigningBehavior: "always"
+        SigningProtocol: "sigv4"
+
+  CertificateManagerCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      DomainName: !Sub "${CDNDomain}"
+      SubjectAlternativeNames:
+        - !Sub "${CDNDomain}"
+      DomainValidationOptions:
+        - DomainName: !Sub "${CDNDomain}"
+          ValidationDomain: !Sub "${CDNDomain}"
+      CertificateTransparencyLoggingPreference: "ENABLED"
+
+  IAMUser:
+    Type: "AWS::IAM::User"
+    Properties:
+      Path: "/"
+      UserName: !Sub "${ResourcePrefix}-user"
+      Tags:
+        - Key: !Ref ResourcePrefix
+          Value: "true"
+      ManagedPolicyArns:
+        - !Ref S3AccessPolicy
+        - !Ref DynamoAccessPolicy
+
+  DynamoAccessPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: !Sub "${ResourcePrefix}-db-access"
+      Path: "/"
+      PolicyDocument:
+        Fn::ToJsonString:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: "VisualEditor0"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:PutItem"
+                - "dynamodb:DeleteItem"
+                - "dynamodb:GetItem"
+                - "dynamodb:Scan"
+                - "dynamodb:Query"
+                - "dynamodb:UpdateItem"
+              Resource:
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}"
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}/index/slug"
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}"
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}/index/id"
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}"
+                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}/index/postSlug"
+
+  S3AccessPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: !Sub "${ResourcePrefix}-s3-access"
+      Path: "/"
+      PolicyDocument:
+        Fn::ToJsonString:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: "S3UploadAssets"
+              Effect: "Allow"
+              Action:
+                - "s3:PutObject"
+                - "s3:GetObject"
+                - "s3:GetBucketWebsite"
+                - "s3:GetObjectAttributes"
+                - "s3:DeleteObject"
+                - "s3:GetBucketLocation"
+              Resource:
+                - !Sub "arn:aws:s3:::${S3Bucket}"
+                - !Sub "arn:aws:s3:::${S3Bucket}/*.jpg"
+                - !Sub "arn:aws:s3:::${S3Bucket}/*.jpeg"
+                - !Sub "arn:aws:s3:::${S3Bucket}/*.png"
+            - Sid: "STSToken"
+              Effect: "Allow"
+              Action: "sts:GetFederationToken"
+              Resource: !Sub "arn:aws:sts::${AWS::AccountId}:federated-user/S3UploadWebToken"

@@ -1,0 +1,28 @@
+name: Deploy AWS Stack
+
+on:
+  push:
+    paths:
+      - stack/**
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.OIDCROLE }}
+          role-session-name: CloudFormationDeploy
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: martinblog
+          template: stack/formation.yaml
+          parameter-overrides: "ResourcePrefix=${{ secrets.RESOURCEPREFIX }}"
