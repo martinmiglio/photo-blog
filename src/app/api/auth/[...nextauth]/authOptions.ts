@@ -1,4 +1,10 @@
-import { User, createUser, getUserById, isUserPoster } from "@/db/auth";
+import {
+  User,
+  createUser,
+  getUserById,
+  isUserAdmin,
+  isUserPoster,
+} from "@/db/auth";
 import { Account, AuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
@@ -32,6 +38,7 @@ const authOptions: AuthOptions = {
           name: user.name ?? undefined,
           image: user.image ?? undefined,
           poster: false,
+          admin: false,
         };
         await createUser(newUser);
       }
@@ -40,12 +47,14 @@ const authOptions: AuthOptions = {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (account) {
         token.poster = await isUserPoster(account.providerAccountId ?? "0");
+        token.admin = await isUserAdmin(account.providerAccountId ?? "0");
         token.id = account.providerAccountId;
       }
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
       session.user.poster = token.poster;
+      session.user.admin = token.admin;
       session.user.id = token.id;
       return session;
     },
