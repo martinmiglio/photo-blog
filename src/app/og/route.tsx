@@ -1,3 +1,4 @@
+import config from "@/../tailwind.config.js";
 import { ImageResponse } from "next/server";
 import { z } from "zod";
 
@@ -5,6 +6,8 @@ import { z } from "zod";
 /* eslint-disable @next/next/no-img-element */
 
 export const runtime = "edge";
+
+const { theme } = config.theme.colors;
 
 const schema = z.object({
   PUBLIC_URL: z.string(),
@@ -26,7 +29,7 @@ export async function GET() {
       (
         <div
           style={{
-            backgroundColor: "#F8C4DC",
+            backgroundColor: theme[200],
             fontFamily: '"Regular"',
           }}
           tw="w-full h-full flex flex-col"
@@ -34,7 +37,7 @@ export async function GET() {
           <div tw="flex flex-col items-center">
             <h1
               style={{ fontFamily: '"Bold"' }}
-              tw="text-[#3D0A1F] py-8 text-9xl"
+              tw={`text-[${theme[900]}] py-8 text-9xl`}
             >
               {env.BLOG_TITLE}
             </h1>
@@ -44,7 +47,9 @@ export async function GET() {
               width={350}
             />
           </div>
-          <h4 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
+          <h4
+            tw={`text-[${theme[900]}] opacity-30 p-8 text-5xl mt-auto ml-auto`}
+          >
             {env.PUBLIC_URL}
           </h4>
         </div>

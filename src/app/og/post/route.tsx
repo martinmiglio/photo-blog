@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
+import config from "@/../tailwind.config.js";
 import { User } from "@/db/auth";
 import { Post } from "@/db/post";
 import { ImageResponse, NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export const runtime = "edge";
+
+const { theme } = config.theme.colors;
 
 const schema = z.object({
   BLOG_TITLE: z.string(),
@@ -46,10 +49,10 @@ export async function GET(req: NextRequest) {
       (
         <div
           style={{
-            backgroundColor: "#F8C4DC",
+            backgroundColor: theme[200],
             fontFamily: '"Regular"',
           }}
-          tw="w-full h-full flex flex-col text-[#3D0A1F]"
+          tw={`w-full h-full flex flex-col text-[${theme[900]}]`}
         >
           <div tw="flex flex-col items-center">
             <h1 style={{ fontFamily: '"Bold"' }} tw="pt-8 text-9xl">
@@ -62,9 +65,7 @@ export async function GET(req: NextRequest) {
                 tw={`flex m-2 mr-6 h-[${PFP_SIZE}px] w-[${PFP_SIZE}px] overflow-hidden rounded-full`}
               >
                 <img
-                  src={
-                    user?.image ?? `https://${env.CDN_DOMAIN}/pfp.jpg`
-                  }
+                  src={user?.image ?? `https://${env.CDN_DOMAIN}/pfp.jpg`}
                   width={PFP_SIZE}
                   height={PFP_SIZE}
                   alt="pfp"
@@ -81,7 +82,9 @@ export async function GET(req: NextRequest) {
             </div>
             <h4 tw="flex text-9xl my-auto">&quot;{post.title}&quot;</h4>
           </div>
-          <h5 tw="text-[#3D0A1F] opacity-30 p-8 text-5xl mt-auto ml-auto">
+          <h5
+            tw={`text-[${theme[900]}] opacity-30 p-8 text-5xl mt-auto ml-auto`}
+          >
             {env.PUBLIC_URL}/post/{post.slug.slice(0, 9)}...
           </h5>
         </div>
