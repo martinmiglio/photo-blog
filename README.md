@@ -11,7 +11,7 @@ Host your own simple and elegant platform for sharing and exploring photos.
 The project utilizes a blend of modern technologies for ease of development and deployment:
 
 - A [NextJS](https://nextjs.org/) frontend deployed on [Vercel](https://vercel.com)
-- An [CloudFormation](https://aws.amazon.com/cloudformation/) stack for the backend deployed on AWS
+- A [CloudFormation](https://aws.amazon.com/cloudformation/) stack for the backend deployed on AWS
 
 ## Deployment
 
