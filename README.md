@@ -2,7 +2,7 @@
 
 Host your own simple and elegant platform for sharing and exploring photos.
 
-<!-- ![Project Header Image](link-to-header-image.png) -->
+[![Project Header Image](https://blogdemo.martinmiglio.dev/og?v2)](https://blogdemo.martinmiglio.dev/)
 
 **BYOPB** is designed as a user-friendly web application for showcasing photos and allowing users to explore posts by tags. It offers an intuitive interface displaying photos in a grid format. The application supports user authentication, enabling designated posters to create new posts, while other users can engage by commenting on posts.
 
