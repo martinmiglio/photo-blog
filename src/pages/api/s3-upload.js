@@ -17,7 +17,7 @@ export default APIRoute.configure({
   bucket: `${env.AWS_RESOURCE_PREFIX}-bucket`,
   region: env.AWS_REGION,
   key(req, filename) {
-    const originalExtension = filename.split(".").pop();
+    const originalExtension = filename.split(".").pop().toLowerCase();
     const hash = createHash("sha256").update(`${Date.now()}-${filename}`);
     const newName = `${hash.digest("hex")}.${originalExtension}`;
     return sanitizeKey(newName);
