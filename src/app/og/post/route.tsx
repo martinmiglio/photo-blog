@@ -39,10 +39,6 @@ export async function GET(req: NextRequest) {
       new URL("../../../assets/Bold.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
-    const fontDataRegular = await fetch(
-      new URL("../../../assets/Regular.ttf", import.meta.url),
-    ).then((res) => res.arrayBuffer());
-
     const PFP_SIZE = 110;
 
     return new ImageResponse(
@@ -50,17 +46,17 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             backgroundColor: theme[200],
-            fontFamily: '"Regular"',
+            fontFamily: '"Bold"',
           }}
           tw={`w-full h-full flex flex-col text-[${theme[900]}]`}
         >
           <div tw="flex flex-col items-center">
-            <h1 style={{ fontFamily: '"Bold"' }} tw="pt-8 text-9xl">
+            <h1 style={{}} tw="pt-8 text-9xl">
               {env.BLOG_TITLE}
             </h1>
           </div>
           <div tw="flex flex-col mx-16 flex-grow">
-            <div tw="flex text-6xl mb-2">
+            <div tw="flex text-5xl mb-2">
               <div
                 tw={`flex m-2 mr-6 h-[${PFP_SIZE}px] w-[${PFP_SIZE}px] overflow-hidden rounded-full`}
               >
@@ -80,10 +76,10 @@ export async function GET(req: NextRequest) {
                   })}`}
               </h3>
             </div>
-            <h4 tw="flex text-9xl my-auto">&quot;{post.title}&quot;</h4>
+            <h4 tw="flex text-7xl my-auto">&quot;{post.title}&quot;</h4>
           </div>
           <h5
-            tw={`text-[${theme[900]}] opacity-30 p-8 text-5xl mt-auto ml-auto`}
+            tw={`text-[${theme[900]}] opacity-30 p-8 text-3xl mt-auto ml-auto`}
           >
             {env.PUBLIC_URL}/post/{post.slug.slice(0, 9)}...
           </h5>
@@ -93,11 +89,6 @@ export async function GET(req: NextRequest) {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Regular",
-            data: fontDataRegular,
-            style: "normal",
-          },
           {
             name: "Bold",
             data: fontDataBold,

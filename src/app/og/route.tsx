@@ -21,48 +21,29 @@ export async function GET() {
       new URL("../../assets/Bold.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
-    const fontDataRegular = await fetch(
-      new URL("../../assets/Regular.ttf", import.meta.url),
-    ).then((res) => res.arrayBuffer());
-
     return new ImageResponse(
       (
         <div
           style={{
             backgroundColor: theme[200],
-            fontFamily: '"Regular"',
+            fontFamily: '"Bold"',
           }}
           tw="w-full h-full flex flex-col"
         >
           <div tw="flex flex-col items-center">
-            <h1
-              style={{ fontFamily: '"Bold"' }}
-              tw={`text-[${theme[900]}] py-8 text-9xl`}
-            >
-              {env.BLOG_TITLE}
-            </h1>
+            <h1 tw={`text-[${theme[900]}] py-8 text-9xl`}>{env.BLOG_TITLE}</h1>
             <img
               src={`https://${env.PUBLIC_URL}/icon.svg`}
               height={320}
               width={320}
             />
           </div>
-          <h4
-            tw={`text-[${theme[900]}] opacity-30 p-8 text-5xl mt-auto ml-auto`}
-          >
-            {env.PUBLIC_URL}
-          </h4>
         </div>
       ),
       {
         width: 1200,
         height: 630,
         fonts: [
-          {
-            name: "Regular",
-            data: fontDataRegular,
-            style: "normal",
-          },
           {
             name: "Bold",
             data: fontDataBold,
