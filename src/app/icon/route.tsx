@@ -15,11 +15,12 @@ const env = schema.parse(process.env);
 export async function GET() {
   return new ImageResponse(
     (
-      <div tw="flex bg-transparent">
+      <div tw="flex bg-transparent h-[64px] w-[64px]">
         <img
           src={`https://${env.PUBLIC_URL}/icon.svg`}
-          height={64}
-          width={64}
+          height={52}
+          width={52}
+          tw="m-auto"
         />
       </div>
     ),
