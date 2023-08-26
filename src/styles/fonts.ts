@@ -1,3 +1,3 @@
-import { Yanone_Kaffeesatz } from "next/font/google";
+import { Noto_Sans_Display as Font } from "next/font/google";
 
-export const font = Yanone_Kaffeesatz({ subsets: ["latin"] });
+export const font = Font({ subsets: ["latin"] });

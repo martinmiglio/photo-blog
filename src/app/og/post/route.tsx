@@ -36,11 +36,11 @@ export async function GET(req: NextRequest) {
     const user = (await res.json()) as User | null;
 
     const fontDataBold = await fetch(
-      new URL("../../../assets/YanoneKaffeesatz-Bold.ttf", import.meta.url),
+      new URL("../../../assets/Bold.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
     const fontDataRegular = await fetch(
-      new URL("../../../assets/YanoneKaffeesatz-Regular.ttf", import.meta.url),
+      new URL("../../../assets/Regular.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
     const PFP_SIZE = 110;

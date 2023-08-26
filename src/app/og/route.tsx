@@ -18,11 +18,11 @@ const env = schema.parse(process.env);
 export async function GET() {
   try {
     const fontDataBold = await fetch(
-      new URL("../../assets/YanoneKaffeesatz-Bold.ttf", import.meta.url),
+      new URL("../../assets/Bold.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
     const fontDataRegular = await fetch(
-      new URL("../../assets/YanoneKaffeesatz-Regular.ttf", import.meta.url),
+      new URL("../../assets/Regular.ttf", import.meta.url),
     ).then((res) => res.arrayBuffer());
 
     return new ImageResponse(
@@ -43,8 +43,8 @@ export async function GET() {
             </h1>
             <img
               src={`https://${env.PUBLIC_URL}/icon.svg`}
-              height={350}
-              width={350}
+              height={320}
+              width={320}
             />
           </div>
           <h4
