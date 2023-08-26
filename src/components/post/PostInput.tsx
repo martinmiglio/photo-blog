@@ -169,10 +169,9 @@ function TagsInput({
 
     const tags =
       value
-        ?.replaceAll(/[^a-zA-Z0-9]/g, "") // Remove non-alphabetical characters
-        .toLowerCase()
+        ?.toLowerCase()
         .split(" ") // Split by whitespace
-        .map((tag) => tag.trim()) // Remove whitespace
+        .map((tag) => tag.trim().replaceAll(/[^a-zA-Z0-9]/g, "")) // Remove whitespace and special characters
         .filter((tag) => tag !== "") // Remove empty tags
         .filter((tag, index, self) => self.indexOf(tag) === index) ?? []; // Remove duplicates
     handleTagsChange?.(tags);
