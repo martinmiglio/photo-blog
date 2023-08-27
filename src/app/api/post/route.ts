@@ -13,16 +13,16 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req });
-  if (!token?.poster) {
-    return NextResponse.error();
-  }
   try {
+    const token = await getToken({ req });
+    if (!token?.poster) {
+      return NextResponse.error();
+    }
     const post: Post = await req.json();
     await createPost(post);
     return NextResponse.json({ message: "Post created" });
   } catch (err) {
-    console.error(err);
+    console.error(JSON.stringify(err, null, 2));
     return NextResponse.error();
   }
 }
