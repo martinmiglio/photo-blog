@@ -86,7 +86,7 @@ export function TagsBrowserHeader({
   return (
     <div className="w-full">
       <div
-        className="flex min-w-full whitespace-nowrap flex-nowrap divide-x-4 divide-theme-200 overflow-x-auto overscroll-bouncing snap-x select-none mb-2"
+        className="overscroll-bouncing mb-2 flex min-w-full select-none snap-x flex-nowrap divide-x-4 divide-theme-200 overflow-x-auto whitespace-nowrap"
         style={{ scrollbarColor: "#F8A5D0 #F8C4DC" }}
       >
         {tags.map((tag) => {
@@ -98,7 +98,7 @@ export function TagsBrowserHeader({
           return (
             <div
               key={tag}
-              className={`px-2 py-1 shrink-0 w-20 min-w-fit text-center snap-start mb-4 transition-colors cursor-pointer ${backgroundColorClass}`}
+              className={`mb-4 w-20 min-w-fit shrink-0 cursor-pointer snap-start px-2 py-1 text-center transition-colors ${backgroundColorClass}`}
               onClick={() => setSelectedTag(tag)}
             >
               {tag}

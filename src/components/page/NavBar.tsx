@@ -19,7 +19,7 @@ export default function NavBar({ title }: { title: string }) {
       </h1>
       {showNav && (
         <div className="py-2">
-          <div className="absolute flex gap-4 left-0">
+          <div className="absolute left-0 flex gap-4">
             {signedIn ? (
               <button className="hover:underline" onClick={() => signOut()}>
                 sign out
@@ -33,7 +33,7 @@ export default function NavBar({ title }: { title: string }) {
               </button>
             )}
           </div>
-          <div className="absolute flex gap-4 right-0">
+          <div className="absolute right-0 flex gap-4">
             {isPoster && (
               <Link className="hover:underline" href="/new-post">
                 new post

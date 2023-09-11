@@ -45,7 +45,7 @@ async function CommentCard({ comment }: { comment: Comment }) {
           />
         </div>
         <div>
-          <div className="relative md:text-1xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem] flex gap-1">
+          <div className="md:text-1xl relative top-[0.12rem] my-auto flex gap-1 text-2xl font-light text-theme-700 opacity-50">
             <div className="font-semibold">{user?.name}</div>
             {comment.timestamp && (
               <>

@@ -53,13 +53,13 @@ export default function CommentInput({ postSlug }: { postSlug: string }) {
     <div className="inline-flex w-full">
       <input
         type="text"
-        className="p-2 pl-3 text-lg font-light text-theme-700 bg-theme-50 rounded-l flex-grow"
+        className="flex-grow rounded-l bg-theme-50 p-2 pl-3 text-lg font-light text-theme-700"
         placeholder="new comment"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
       <button
-        className="px-4 text-lg border-b-4 border-theme-700 bg-theme-500  font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 disabled:cursor-not-allowed disabled:opacity-50 rounded-r"
+        className="rounded-r border-b-4 border-theme-700 bg-theme-500 px-4  text-lg font-bold text-theme-50 hover:border-theme-500 hover:bg-theme-400 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={!value || value.length === 0}
         onClick={onSubmit}
       >
