@@ -1,8 +1,7 @@
-import NextImage, { ImageProps } from "next/image";
 import config from "@/../tailwind.config.js";
+import NextImage, { ImageProps } from "next/image";
 
 const { theme } = config.theme.colors;
-
 
 const shimmer = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

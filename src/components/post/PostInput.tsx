@@ -81,7 +81,7 @@ export function PostInput({ cdnDomain }: { cdnDomain: string }) {
             alt={user.name ?? "pfp"}
           />
         </div>
-        <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem]">
+        <h2 className="relative top-[0.12rem] my-auto text-2xl font-light text-theme-700 opacity-50 md:text-3xl">
           {user.name} -{" "}
           {new Date().toLocaleString(undefined, {
             dateStyle: "short",
@@ -181,7 +181,7 @@ function TagsInput({
     <input
       type="text"
       placeholder="Tags, separated by spaces"
-      className="w-full rounded border-b-4 border-theme-700 pl-2 pt-1 font-[350] text-theme-600 focus:border-theme-500 focus:bg-theme-100 text-xl"
+      className="w-full rounded border-b-4 border-theme-700 pl-2 pt-1 text-xl font-[350] text-theme-600 focus:border-theme-500 focus:bg-theme-100"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />

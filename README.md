@@ -20,6 +20,7 @@ To deploy your personalized instance, follow these steps:
 1. **Fork Repository**: Fork the repository to your GitHub account.
 
 2. **Configure Project Details**:
+
    - Change the following details in the code:
      - Edit the blog title, description, author and domain in the `.env` file.
      - Tailwind color theme in `tailwind.config.js`.
@@ -28,21 +29,22 @@ To deploy your personalized instance, follow these steps:
 3. **Deploy AWS Stack**: Deploy the AWS CloudFormation stack provided in the repository. This will create the necessary infrastructure for the back end. Generate an access key for the user created by the stack. To optionally enable automatic redeployment on stack changes, enable the [GitHub workflow](.github/workflows/aws-deploy.yml.disabled) in the repository.
 
 4. **Set Environment Variables**:
+
    - In your local environment or on Vercel, set the following environment variables:
-        - AWS Variables:
-            - `AWS_ACCESS_KEY_ID`: Set to the generated access key.
-            - `AWS_SECRET_ACCESS_KEY`: Set to the corresponding secret key.
-            - `AWS_REGION`: Set to the region where the stack was deployed.
-            - `AWS_RESOURCE_PREFIX`: Set to the stack name.
-        - Google OAuth Variables:
-            [Configure Google OAuth 2.0 credentials](https://developers.google.com/identity/protocols/oauth2) for authentication, and set the following variables:
-            - `GOOGLE_CLIENT_ID`: OAuth credentials for authentication.
-            - `GOOGLE_CLIENT_SECRET`: Secret key for OAuth credentials.
-        - NextAuth Variables:
-            - `NEXTAUTH_SECRET`: Set to a random string.
-        - Analytics Variables (Optional):
-            - `ANALYTICS_URL`: Set to the URL of your [umami analytics](https://umami.is/) server. (eg. <https://analytics.example.com>)
-            - `ANALYTICS_ID`: Set to the ID of your analytics server.
+     - AWS Variables:
+       - `AWS_ACCESS_KEY_ID`: Set to the generated access key.
+       - `AWS_SECRET_ACCESS_KEY`: Set to the corresponding secret key.
+       - `AWS_REGION`: Set to the region where the stack was deployed.
+       - `AWS_RESOURCE_PREFIX`: Set to the stack name.
+     - Google OAuth Variables:
+       [Configure Google OAuth 2.0 credentials](https://developers.google.com/identity/protocols/oauth2) for authentication, and set the following variables:
+       - `GOOGLE_CLIENT_ID`: OAuth credentials for authentication.
+       - `GOOGLE_CLIENT_SECRET`: Secret key for OAuth credentials.
+     - NextAuth Variables:
+       - `NEXTAUTH_SECRET`: Set to a random string.
+     - Analytics Variables (Optional):
+       - `ANALYTICS_URL`: Set to the URL of your [umami analytics](https://umami.is/) server. (eg. <https://analytics.example.com>)
+       - `ANALYTICS_ID`: Set to the ID of your analytics server.
 
 5. **Deploy Frontend**: Deploy the NextJS frontend on Vercel by importing the repository. Set the above environment variables in the Vercel project settings.
 

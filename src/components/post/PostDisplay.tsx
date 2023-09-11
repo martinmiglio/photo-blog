@@ -37,7 +37,7 @@ export default function PostDisplay({
             alt={`${user?.name} pfp`}
           />
         </div>
-        <h2 className="relative md:text-3xl text-2xl font-light text-theme-700 opacity-50 my-auto top-[0.12rem] flex gap-1">
+        <h2 className="relative top-[0.12rem] my-auto flex gap-1 text-2xl font-light text-theme-700 opacity-50 md:text-3xl">
           <div className="font-semibold">{user?.name}</div>
           {post.timestamp && (
             <>
