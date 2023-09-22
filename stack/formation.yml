@@ -10,8 +10,6 @@ Parameters:
     Description: domain name for the cdn
     Type: String
 
-Transform: "AWS::LanguageExtensions"
-
 Resources:
   PostsTable:
     Type: "AWS::DynamoDB::Table"
@@ -123,9 +121,6 @@ Resources:
   CloudFrontDistribution:
     Type: "AWS::CloudFront::Distribution"
     Properties:
-      Tags:
-        - Key: !Ref ResourcePrefix
-          Value: "true"
       DistributionConfig:
         Origins:
           - ConnectionAttempts: 3
@@ -203,25 +198,24 @@ Resources:
       ManagedPolicyName: !Sub "${ResourcePrefix}-db-access"
       Path: "/"
       PolicyDocument:
-        Fn::ToJsonString:
-          Version: "2012-10-17"
-          Statement:
-            - Sid: "VisualEditor0"
-              Effect: "Allow"
-              Action:
-                - "dynamodb:PutItem"
-                - "dynamodb:DeleteItem"
-                - "dynamodb:GetItem"
-                - "dynamodb:Scan"
-                - "dynamodb:Query"
-                - "dynamodb:UpdateItem"
-              Resource:
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}"
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}/index/slug"
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}"
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}/index/id"
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}"
-                - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}/index/postSlug"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "VisualEditor0"
+            Effect: "Allow"
+            Action:
+              - "dynamodb:PutItem"
+              - "dynamodb:DeleteItem"
+              - "dynamodb:GetItem"
+              - "dynamodb:Scan"
+              - "dynamodb:Query"
+              - "dynamodb:UpdateItem"
+            Resource:
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}"
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${PostsTable}/index/slug"
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}"
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${UsersTable}/index/id"
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}"
+              - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${CommentsTable}/index/postSlug"
 
   S3AccessPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -229,20 +223,19 @@ Resources:
       ManagedPolicyName: !Sub "${ResourcePrefix}-s3-access"
       Path: "/"
       PolicyDocument:
-        Fn::ToJsonString:
-          Version: "2012-10-17"
-          Statement:
-            - Sid: "S3UploadAssets"
-              Effect: "Allow"
-              Action:
-                - "s3:*"
-              Resource:
-                - !Sub "arn:aws:s3:::${S3Bucket}"
-                - !Sub "arn:aws:s3:::${S3Bucket}/*.jpg"
-                - !Sub "arn:aws:s3:::${S3Bucket}/*.jpeg"
-                - !Sub "arn:aws:s3:::${S3Bucket}/*.png"
-            - Sid: "STSToken"
-              Effect: "Allow"
-              Action: "sts:GetFederationToken"
-              Resource:
-                - !Sub "arn:aws:sts::${AWS::AccountId}:federated-user/S3UploadWebToken"
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "S3UploadAssets"
+            Effect: "Allow"
+            Action:
+              - "s3:*"
+            Resource:
+              - !Sub "arn:aws:s3:::${S3Bucket}"
+              - !Sub "arn:aws:s3:::${S3Bucket}/*.jpg"
+              - !Sub "arn:aws:s3:::${S3Bucket}/*.jpeg"
+              - !Sub "arn:aws:s3:::${S3Bucket}/*.png"
+          - Sid: "STSToken"
+            Effect: "Allow"
+            Action: "sts:GetFederationToken"
+            Resource:
+              - !Sub "arn:aws:sts::${AWS::AccountId}:federated-user/S3UploadWebToken"
