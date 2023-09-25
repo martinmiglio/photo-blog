@@ -6,7 +6,6 @@ import { User } from "@/db/auth";
 import { Post } from "@/db/post";
 import ReactMarkdown from "react-markdown";
 import rehypeRewrite from "rehype-rewrite";
-import gfm from "remark-gfm";
 import { z } from "zod";
 
 const schema = z.object({
@@ -67,7 +66,6 @@ export default function PostDisplay({
               },
             ],
           ]}
-          remarkPlugins={[gfm]}
         >
           {post.body ?? ""}
         </ReactMarkdown>
