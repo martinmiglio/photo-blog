@@ -31,7 +31,7 @@
     "prettier-plugin-tailwindcss": "^0.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-markdown": "^8.0.7",
+    "react-markdown": "^9.0.0",
     "react-web-share": "^2.0.2",
     "rehype-rewrite": "^3.0.6",
     "remark-gfm": "^4.0.0",
