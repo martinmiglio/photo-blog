@@ -1,5 +1,5 @@
 import config from "@/../tailwind.config.js";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 import { z } from "zod";
 
 /* eslint-disable jsx-a11y/alt-text */

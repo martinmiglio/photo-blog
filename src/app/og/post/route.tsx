@@ -2,7 +2,8 @@
 import config from "@/../tailwind.config.js";
 import { User } from "@/db/auth";
 import { Post } from "@/db/post";
-import { ImageResponse, NextRequest, NextResponse } from "next/server";
+import { ImageResponse } from "next/og";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export const runtime = "edge";
