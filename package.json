@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.474.0",
+    "@aws-sdk/client-dynamodb": "^3.490.0",
     "@aws-sdk/credential-providers": "^3.485.0",
     "@aws-sdk/lib-dynamodb": "^3.490.0",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
