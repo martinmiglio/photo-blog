@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.540.0",
-    "@aws-sdk/credential-providers": "^3.529.1",
+    "@aws-sdk/credential-providers": "^3.552.0",
     "@aws-sdk/lib-dynamodb": "^3.549.0",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
