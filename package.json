@@ -36,7 +36,7 @@
     "react-web-share": "^2.0.2",
     "rehype-rewrite": "^4.0",
     "server-only": "^0.0.1",
-    "tailwindcss": "3.4.1",
+    "tailwindcss": "3.4.6",
     "typescript": "5.5.3",
     "zod": "^3.23.8"
   }
